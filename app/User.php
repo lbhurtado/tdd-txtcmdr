@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Validator;
+use App\Token;
 
 class User extends Authenticatable
 {
@@ -87,5 +88,9 @@ class User extends Authenticatable
 
     public function groups() {
         return $this->belongsToMany(Group::class)->withTimestamps();
+    }
+
+    public function tokens() {
+        return $this->hasMany(Token::class);
     }
 }

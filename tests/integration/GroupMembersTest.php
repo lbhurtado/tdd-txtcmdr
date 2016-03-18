@@ -47,17 +47,13 @@ class GroupMembersTest extends TestCase
         $user3->groups()->attach($group3->id);
         $user4->groups()->attach($group3->id);
 
-        $this->assertEquals("Lester", Group::whereName("Philippines")->firstOrFail()->members()->find($user1->id)->name);
-        $this->assertEquals("Dene", Group::whereName("Philippines")->firstOrFail()->members()->find($user2->id)->name);
-        $this->assertEquals("Glen", Group::where(['name' => "Australia"])->firstOrFail()->members()->find($user3->id)->name);
-        $this->assertEquals("Jo Anna", Group::where(['name' => "Australia"])->firstOrFail()->members()->find($user4->id)->name);
-        $this->assertEquals("Rowena", Group::where(['name' => "Philippines"])->firstOrFail()->members()->find($user5->id)->name);
+        $this->assertEquals("Lester",   Group::whereName("Philippines")->firstOrFail()->members()->find($user1->id)->name);
+        $this->assertEquals("Dene",     Group::whereName("Philippines")->firstOrFail()->members()->find($user2->id)->name);
+        $this->assertEquals("Glen",     Group::where(['name' => "Australia"])->firstOrFail()->members()->find($user3->id)->name);
+        $this->assertEquals("Jo Anna",  Group::where(['name' => "Australia"])->firstOrFail()->members()->find($user4->id)->name);
+        $this->assertEquals("Rowena",   Group::where(['name' => "Philippines"])->firstOrFail()->members()->find($user5->id)->name);
 
         $this->assertEquals('Philippines', User::whereName("Lester")->firstOrFail()->groups()->find($group1->id)->name);
-
-        var_dump($user1->groups()->lists('name'));
-
-        var_dump($group3->members()->lists('name'));
 
         $this->seeInDatabase('group_user', ['user_id' => $user1->id, 'group_id' => $group1->id], 'sqlite');
         $this->seeInDatabase('group_user', ['user_id' => $user2->id, 'group_id' => $group1->id], 'sqlite');

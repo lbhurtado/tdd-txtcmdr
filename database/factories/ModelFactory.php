@@ -27,3 +27,9 @@ $factory->define(App\Group::class, function (Faker\Generator $faker) {
         'name' => $faker->company,
     ];
 });
+
+$factory->define(App\Token::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => factory(\App\User::class)->create()->id,
+    ];
+});
