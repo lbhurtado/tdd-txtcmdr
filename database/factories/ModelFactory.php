@@ -14,8 +14,16 @@
 $factory->define(App\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
-        'email' => $faker->safeEmail,
+        'email' => $faker->email,
+        'mobile' => "0" . rand(900,999) . rand(1000000, 9999999),
+        'token' => $faker->randomNumber(4),
         'password' => bcrypt(str_random(10)),
         'remember_token' => str_random(10),
+    ];
+});
+
+$factory->define(App\Group::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company,
     ];
 });
