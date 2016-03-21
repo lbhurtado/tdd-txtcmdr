@@ -9,7 +9,7 @@ class Token extends Model
     protected $fillable = ['pin', 'user_id'];
 
     protected $casts = [
-        'ping' => 'string',
+        'pin' => 'string',
     ];
 
     function getZeroPaddedNumber($value, $padding, $pad_type = STR_PAD_LEFT) {

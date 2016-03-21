@@ -43,7 +43,7 @@ class TokenTest extends TestCase
     }
 
     /** @test */
-    function a_user_can_access_tokens() {
+    function a_token_can_be_associated_to_a_user() {
         $user = factory(User::class)->create();
 
         $token1 = factory(Token::class)->create();
@@ -55,5 +55,44 @@ class TokenTest extends TestCase
         $token2->user()->associate($user)->save();
 
         $this->assertCount(2, $user->tokens);
+    }
+
+    /** @test */
+    function a_user_can_accept_any_number_of_tokens() {
+        $user = factory(User::class)->create();
+
+        $token = factory(Token::class)->create(['pin' => "1111"]);
+
+        $tokens = factory(Token::class,2)->create();
+
+        $user->tokens()->save($token);
+
+        $this->assertCount(1, $user->tokens);
+
+        $this->assertEquals("1111", $user->tokens()->first()->pin);
+
+        $user->tokens()->saveMany($tokens);
+
+        $this->assertEquals(3, $user->tokens()->count());
+    }
+
+    /** @test */
+    function a_user_can_conjure_tokens() {
+        $user = factory(User::class)->create();
+
+        $user->newToken(['pin' => "2222"]);
+
+        $this->assertEquals("2222", $user->tokens()->first()->pin);
+
+        $user->newToken(['pin' => "3333"]);
+
+        $this->assertEquals(2, $user->tokens()->count());
+    }
+
+    /** @test */
+    function a_token_has_a_context() {
+        $token = factory(Token::class)->create(['context' => "context1"]);
+
+        $this->assertEquals("context1", $token->context);
     }
 }

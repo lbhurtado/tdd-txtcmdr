@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTokensTable extends Migration
+class CreateRegionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,11 +12,11 @@ class CreateTokensTable extends Migration
      */
     public function up()
     {
-        Schema::create('tokens', function (Blueprint $table) {
+        Schema::create('regions', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('pin', 4)->indexed();
-            $table->integer('user_id')->unsigned()->indexed();
-            $table->string('context')->nullable();
+            $table->integer('island_id')->unsigned()->nullable();
+            $table->string('name')->index();
+            $table->unique(['island_id', 'name']);
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateTokensTable extends Migration
      */
     public function down()
     {
-        Schema::drop('tokens');
+        Schema::drop('regions');
     }
 }

@@ -33,3 +33,39 @@ $factory->define(App\Token::class, function (Faker\Generator $faker) {
         'user_id' => factory(\App\User::class)->create()->id,
     ];
 });
+
+$factory->define(App\Place::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->company,
+    ];
+});
+
+$factory->define(App\Barangay::class, function (Faker\Generator $faker) {
+    return [
+        'name' => "Barangay" . $faker->firstNameFemale,
+    ];
+});
+
+$factory->define(App\Town::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->city,
+    ];
+});
+
+$factory->define(App\Province::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->randomElement(["Ilocos Norte", "Ilocos Sur", "Pangasinan"]),
+    ];
+});
+
+$factory->define(App\Region::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->randomElement(["Region I", "Region II", "Region III"]),
+    ];
+});
+
+$factory->define(App\Island::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->randomElement(["Luzon", "Visayas", "Mindanao"]),
+    ];
+});

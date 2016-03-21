@@ -40,6 +40,7 @@ class User extends Authenticatable
     protected $attributes = array(
         'verified' => false,
     );
+
     /**
      * The rules to use for the model validation.
      * Define your validation rules here.
@@ -92,5 +93,10 @@ class User extends Authenticatable
 
     public function tokens() {
         return $this->hasMany(Token::class);
+    }
+
+    public function newToken($attributes = null) {
+
+        return $this->tokens()->create($attributes);
     }
 }
