@@ -34,6 +34,18 @@ $factory->define(App\Token::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Precinct::class, function (Faker\Generator $faker) {
+    return [
+        'number' => str_pad($faker->numberBetween(1,9999), 4, STR_PAD_LEFT) . $faker->randomElement(["A", "B", "C", "D", "E"]),
+    ];
+});
+
+$factory->define(App\ClusteredPrecinct::class, function (Faker\Generator $faker) {
+    return [
+
+    ];
+});
+
 $factory->define(App\Place::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,

@@ -9,6 +9,10 @@ class Place extends Model
 {
     protected $fillable = ['name'];
 
+    function clustered_precincts() {
+        return $this->hasMany(ClusteredPrecinct::class);
+    }
+
     function barangay() {
         return $this->belongsTo(Town::class);
     }
