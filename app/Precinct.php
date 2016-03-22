@@ -24,9 +24,8 @@ class Precinct extends Model
         return $value;
     }
 
-    public function setFirstNameAttribute($value)
+    public function setNumberAttribute($value)
     {
-
         $matches = null;
 
         if (preg_match('/(\\d)*\\s*([a-zA-z])/', $value, $matches)) {
@@ -34,6 +33,7 @@ class Precinct extends Model
             $this->attributes['number'] = $matches[1] . $matches[2];
         }
         else {
+
             $this->attributes['number'] = $value;
         }
     }
