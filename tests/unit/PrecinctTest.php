@@ -26,4 +26,15 @@ class PrecinctTest extends TestCase
 
         $this->seeInDatabase('precincts', ['number' => "1A"], 'sqlite');
     }
+
+    /** @test */
+    function a_precinct_has_registered_voters() {
+        $precinct = new Precinct(['number' => "1A", 'registered_voters' => 100]);
+
+        $precinct->save();
+
+        $this->assertEquals(100, $precinct->first()->registered_voters);
+
+        $this->seeInDatabase('precincts', ['registered_voters' => 100], 'sqlite');
+    }
 }

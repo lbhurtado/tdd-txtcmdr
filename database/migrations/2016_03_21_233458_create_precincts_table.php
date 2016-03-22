@@ -17,6 +17,7 @@ class CreatePrecinctsTable extends Migration
             $table->integer('clustered_precinct_id')->unsigned()->nullable();
             $table->string('number')->index();
             $table->unique(['clustered_precinct_id', 'number']);
+            $table->integer('registered_voters')->unsigned()->default(0);
             $table->timestamps();
         });
     }
