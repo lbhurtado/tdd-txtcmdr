@@ -18,7 +18,7 @@ class ClusteredPrecinctPrecinctsTest extends TestCase
 
         $precinct->clustered_precinct()->associate($clustered_precinct)->save();
 
-        $this->assertEquals("1A", $clustered_precinct->precincts()->first()->number);
+        $this->assertEquals("0001A", $clustered_precinct->precincts()->first()->number);
     }
 
     /** @test */
@@ -39,6 +39,6 @@ class ClusteredPrecinctPrecinctsTest extends TestCase
 
         $this->assertCount(2, $clustered_precinct->precincts);
 
-        $this->assertEquals("1A", $clustered_precinct->precincts()->first()->number);
+        $this->assertEquals("0001A", $clustered_precinct->precincts()->first()->number);
     }
 }
