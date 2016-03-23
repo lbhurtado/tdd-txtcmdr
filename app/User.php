@@ -88,6 +88,7 @@ class User extends Authenticatable
     }
 
     public function groups() {
+
         return $this->belongsToMany(Group::class)->withTimestamps();
     }
 
@@ -98,5 +99,23 @@ class User extends Authenticatable
     public function newToken($attributes = null) {
 
         return $this->tokens()->create($attributes);
+    }
+
+    public function userable(){
+
+        return $this->morphTo();
+    }
+
+    public static function createUser($type, array $userAttributes, array $typeAttributes) {
+        if (class_exists($type)) {
+            $userType = $type::create($typeAttributes);
+            $userType->user()->create($userAttributes);
+
+            return $userType;
+        }
+        else {
+
+            throw new Exception("Invalid user type");
+        }
     }
 }

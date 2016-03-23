@@ -86,5 +86,15 @@ class UserTest extends TestCase
         $this->assertEquals(null, $user->email);
     }
 
+    /** @test */
+    function a_user_has_a_userable_property() {
+        $user = factory(User::class)->create([
+            'mobile' => "639189362340"
+        ]);
+
+        $this->assertNotEmpty($user->userable());
+    }
+
+
 
 }

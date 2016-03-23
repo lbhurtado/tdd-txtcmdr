@@ -19,6 +19,8 @@ class CreateUsersTable extends Migration
             $table->string('mobile')->unique();
             $table->string('token')->nullable();
             $table->boolean('verified')->default(false);
+            $table->integer('userable_id')->unsigned()->nullable();
+            $table->string('userable_type')->nullable();
             $table->string('password', 60);
 //            $table->integer('group_id')->unsigned()->nullable()->index();
             $table->rememberToken();
