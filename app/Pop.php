@@ -21,13 +21,11 @@ class Pop extends Model
             $precinct = Precinct::firstOrCreate(['number' => $model->precinct, 'registered_voters' => $model->registered_voters]);
 
             $precinct->cluster()->associate($cluster)->save();
-
             $cluster->place()->associate($place)->save();
             $place->barangay()->associate($barangay)->save();
             $barangay->town()->associate($town)->save();
             $town->province()->associate($province)->save();
             $province->region()->associate($region)->save();
-
 
         });
     }
