@@ -24,8 +24,19 @@ class Watcher extends Model
 
     public static function designate(Cluster $cluster, User $user) {
         $watcher = static::create()->cluster()->associate($cluster);
+
         $watcher->user()->save($user);
 
+        $watcher->save();
+
         return $watcher;
+    }
+
+    public static function autoDesignate($token, $attributes = []) {
+        $user = User::create($attributes);
+
+        $cluster = Cluster::where('token', '=', $token)->firstOrFail();
+
+        return static::designate($cluster, $user);
     }
 }

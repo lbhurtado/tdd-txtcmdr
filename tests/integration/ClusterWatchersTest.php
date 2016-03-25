@@ -60,8 +60,7 @@ class ClusterWatchersTest extends TestCase
             Watcher::class,
             [
                 'name' => "Joe",
-                'mobile'=>"09189362340",
-                'password' => Hash::make("password1")
+                'mobile'=>"09189362340"
             ]
         );
 
@@ -69,8 +68,7 @@ class ClusterWatchersTest extends TestCase
             Watcher::class,
             [
                 'name' => "Jess",
-                'mobile'=>"09173011987",
-                'password' => Hash::make("password2")
+                'mobile'=>"09173011987"
             ]
         );
 
@@ -92,6 +90,24 @@ class ClusterWatchersTest extends TestCase
                 ->watchers()->with('user')->whereHas('user', function($q){
                     $q->where('name', '=', "Jess");
                 })->first()->user->mobile
+        );
+    }
+
+    /** @test */
+    function a_watcher_can_be_automatically_designated_to_a_cluster_using_token_from_a_mobile() {
+        $cluster = Cluster::create();
+
+        $watcher = Watcher::autoDesignate($cluster->token, [
+            'mobile' => "09189362340",
+            'handle' => "lbhurtado"
+        ]);
+
+        $this->assertEquals(
+            "639189362340",
+            Cluster::find($cluster->id)
+                ->watchers()->with('user')->whereHas('user', function($q) use ($watcher){
+                    $q->where('handle', '=', "lbhurtado");
+                })->firstOrFail()->user->mobile
         );
     }
 }

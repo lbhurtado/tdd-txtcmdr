@@ -11,16 +11,20 @@ class ClusterTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    function a_cluster_has_a_place_id() {
-//        $place = factory(Place::class)->create(
-//            [
-//                'id' => 100,
-//                'name' => "Mohon Elementary School"
-//            ]
-//        );
-//
-//        $cluster = new Cluster(['place_id' => $place->id]);
-//
-//        $this->assertEquals(100, $cluster->place_id);
+    function a_cluster_has_a_token_that_is_automatically_generated() {
+        $cluster = new Cluster();
+
+        $cluster->save();
+
+        $this->assertNotEmpty($cluster->token);
+    }
+
+    /** @test */
+    function generated_token_has_a_pattern() {
+        $pattern = "/^([A-Z]{3})(\\d{4})$/";
+
+        $cluster = Cluster::create();
+
+        $this->assertRegExp($pattern, $cluster->token);
     }
 }

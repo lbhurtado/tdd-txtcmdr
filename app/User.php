@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'mobile', 'email', 'password',
+        'name', 'mobile', 'email', 'password', 'handle'
     ];
 
     /**
@@ -69,6 +69,10 @@ class User extends Authenticatable
                     if (preg_match(static::$mobileRegex, $model->mobile, $matches))
                         $model->mobile = static::$defaultCountryCode . $matches['telco'] . $matches['number'];
 
+                    $model->generatePassword();
+
+                    $model->generateHandle();
+
                     return true;
                 }
 
@@ -86,6 +90,36 @@ class User extends Authenticatable
         }
 
         return true;
+    }
+
+    /**
+     * Generates the value for the User::password field.
+     * @return bool
+     */
+    protected function generatePassword()
+    {
+        $last_4_digits = substr($this->mobile, -4);
+
+        $this->attributes['password'] = $this->password ? $this->password : \Hash::make($last_4_digits);
+
+        if( is_null($this->attributes['password']) )
+            return false; // failed to create token
+        else
+            return true;
+    }
+
+    /**
+     * Generates the value for the User::handle field.
+     * @return bool
+     */
+    protected function generateHandle()
+    {
+        $this->attributes['handle'] = $this->handle ? $this->handle : $this->mobile;
+
+        if( is_null($this->attributes['handle']) )
+            return false; // failed to create token
+        else
+            return true;
     }
 
     public function groups() {

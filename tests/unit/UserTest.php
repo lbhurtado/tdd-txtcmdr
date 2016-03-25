@@ -95,6 +95,29 @@ class UserTest extends TestCase
         $this->assertNotEmpty($user->userable());
     }
 
+    /** @test */
+    function the_name_of_the_user_is_optional() {
+        $user = User::create(['mobile' => "09189362340"]);
 
+        $this->assertEquals("639189362340", $user->mobile);
+    }
+
+    /** @test */
+    function the_password_is_a_hash_of_the_last_4_digits_of_the_users_mobile() {
+        $user = User::create(['mobile' => "09189362340"]);
+
+        $this->assertTrue(\Hash::check("2340", $user->password));
+    }
+
+    /** @test */
+    function a_user_has_a_handle_that_defaults_to_the_mobile() {
+        $user1 = User::create(['mobile' => "09189362340", 'handle' => "lbhurtado"]);
+
+        $this->assertEquals("lbhurtado", $user1->handle);
+
+        $user2 = User::create(['mobile' => "09173011987"]);
+
+        $this->assertEquals("639173011987", $user2->handle);
+    }
 
 }
