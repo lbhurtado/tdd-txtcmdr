@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateClusteredPrecinctsTable extends Migration
+class CreateClustersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,7 +12,7 @@ class CreateClusteredPrecinctsTable extends Migration
      */
     public function up()
     {
-        Schema::create('clustered_precincts', function (Blueprint $table) {
+        Schema::create('clusters', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('place_id')->unsigned()->nullable()->index();
             $table->timestamps();
@@ -26,6 +26,6 @@ class CreateClusteredPrecinctsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('clustered_precincts');
+        Schema::drop('clusters');
     }
 }

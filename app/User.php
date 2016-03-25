@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Validator;
 use App\Token;
+use Exception;
 
 class User extends Authenticatable
 {
@@ -106,7 +107,7 @@ class User extends Authenticatable
         return $this->morphTo();
     }
 
-    public static function createUser($type, array $userAttributes, array $typeAttributes) {
+    public static function createUser($type, array $userAttributes, array $typeAttributes = []) {
         if (class_exists($type)) {
             $userType = $type::create($typeAttributes);
             $userType->user()->create($userAttributes);

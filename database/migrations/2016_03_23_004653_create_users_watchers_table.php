@@ -14,7 +14,7 @@ class CreateUsersWatchersTable extends Migration
     {
         Schema::create('users_watchers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('clustered_precinct_id')->unsigned();
+            $table->integer('cluster_id')->unsigned()->nullable();
             $table->timestamps();
         });
     }

@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ClusteredPrecinct extends Model
+class Cluster extends Model
 {
     function precincts() {
         return $this->hasMany(Precinct::class);
@@ -12,5 +12,9 @@ class ClusteredPrecinct extends Model
 
     function place() {
         return $this->belongsTo(Place::class);
+    }
+
+    function watchers() {
+        return $this->hasMany(Watcher::class);
     }
 }

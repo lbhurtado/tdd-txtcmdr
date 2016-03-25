@@ -11,7 +11,7 @@ class WatcherTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    function a_watcher_is_a_user_within_a_precinct() {
+    function a_watcher_is_a_user_within_a_cluster() {
 
         $watcher = User::createUser(
             Watcher::class,
@@ -21,11 +21,11 @@ class WatcherTest extends TestCase
                 'password' => Hash::make('password')
             ],
             [
-                'clustered_precinct_id' => "1"
+                'cluster_id' => "1"
             ]
         );
 
-        $this->assertEquals(1, $watcher->clustered_precinct_id);
+        $this->assertEquals(1, $watcher->cluster_id);
 
         $this->assertEquals('Joe', $watcher->user->name);
 
@@ -43,7 +43,7 @@ class WatcherTest extends TestCase
         $this->seeInDatabase('users_watchers',
             [
                 'id' => 1,
-                'clustered_precinct_id' => 1
+                'cluster_id' => 1
             ],
             'sqlite'
         );

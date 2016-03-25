@@ -40,9 +40,9 @@ $factory->define(App\Precinct::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\ClusteredPrecinct::class, function (Faker\Generator $faker) {
+$factory->define(App\Cluster::class, function (Faker\Generator $faker) {
     return [
-
+        'place_id' => factory(\App\Place::class)->create()->id
     ];
 });
 
@@ -79,5 +79,19 @@ $factory->define(App\Region::class, function (Faker\Generator $faker) {
 $factory->define(App\Island::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->randomElement(["Luzon", "Visayas", "Mindanao"]),
+    ];
+});
+
+$factory->define(App\Watcher::class, function (Faker\Generator $faker) {
+    $cluster = factory(\App\Cluster::class)->create();
+    $id = rand(1000000, 9999999);
+    $user = factory(\App\User::class)->create([
+        'id' => $id,
+        'userable_id' => $id,
+        'userable_type' => \App\Watcher::class
+    ]);
+    return [
+        'id' => $id,
+        'cluster_id' => $cluster->id
     ];
 });

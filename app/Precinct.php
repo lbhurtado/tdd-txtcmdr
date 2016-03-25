@@ -8,8 +8,8 @@ class Precinct extends Model
 {
     protected $fillable = ['number', 'registered_voters'];
 
-    function clustered_precinct() {
-        return $this->belongsTo(ClusteredPrecinct::class);
+    function cluster() {
+        return $this->belongsTo(Cluster::class);
     }
 
     public function getNumberAttribute($value)
