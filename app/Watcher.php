@@ -3,14 +3,10 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use App\Cluster;
-use App\User;
 
 class Watcher extends Model
 {
     protected $table = 'users_watchers';
-
-    protected $fillable = ['cluster_id'];
 
     public function user(){
 

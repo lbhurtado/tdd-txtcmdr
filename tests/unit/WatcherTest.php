@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Watcher;
 use App\User;
+use App\Cluster;
 
 class WatcherTest extends TestCase
 {
@@ -13,17 +14,15 @@ class WatcherTest extends TestCase
     /** @test */
     function a_watcher_is_a_user_within_a_cluster() {
 
-        $watcher = User::createUser(
-            Watcher::class,
-            [
-                'name' => "Joe",
-                'mobile'=>"09189362340",
-                'password' => Hash::make('password')
-            ],
-            [
-                'cluster_id' => "1"
-            ]
-        );
+        $cluster = Cluster::create();
+
+        $user = User::create([
+            'name' => "Joe",
+            'mobile'=>"09189362340",
+            'password' => Hash::make('password')
+        ]);
+
+        $watcher = Watcher::designate($cluster, $user);
 
         $this->assertEquals(1, $watcher->cluster_id);
 

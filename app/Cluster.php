@@ -40,7 +40,13 @@ class Cluster extends Model
      */
     protected function generateToken()
     {
-        $this->attributes['token'] = substr(str_shuffle("ABCDEFGHIJKLMNOPQRSTUVWXYZ"), 0, 3) . rand(1000,9999);
+        $nonconfusingletters = "FHJKMNPRTVWXY";
+
+        $alpha = substr(str_shuffle($nonconfusingletters), 0, 3);
+
+        $numeric = rand(1, 9) . rand(1, 9) . rand(1, 9) . rand(1, 9);
+
+        $this->attributes['token'] = $alpha . $numeric;
 
         if( is_null($this->attributes['token']) )
             return false; // failed to create token
