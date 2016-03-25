@@ -35,4 +35,14 @@ class Watcher extends Model
 
         return static::designate($cluster, $user);
     }
+
+    public function scopeHasMobile($query, $mobile)
+    {
+        if (preg_match(User::$mobileRegex, $mobile, $matches))
+            $mobile = User::$defaultCountryCode . $matches['telco'] . $matches['number'];
+
+        return $query->whereHas('user', function($q) use ($mobile){
+            $q->where('mobile', '=', $mobile);
+        });
+    }
 }

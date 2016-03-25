@@ -12,13 +12,13 @@ class Pop extends Model
         parent::boot();
 
         static::created(function ($model) {
-            $region = Region::create(['name' => $model->region]);
-            $province = Province::create(['name' => $model->province]);
-            $town = Town::create(['name' => $model->town]);
-            $barangay = Barangay::create(['name' => $model->barangay]);
-            $place = Place::create(['name' => $model->place]);
-            $cluster = Cluster::create(['number' => $model->cluster]);
-            $precinct = Precinct::create(['number' => $model->precinct]);
+            $region = Region::firstOrCreate(['name' => $model->region]);
+            $province = Province::firstOrCreate(['name' => $model->province]);
+            $town = Town::firstOrCreate(['name' => $model->town]);
+            $barangay = Barangay::firstOrCreate(['name' => $model->barangay]);
+            $place = Place::firstOrCreate(['name' => $model->place]);
+            $cluster = Cluster::firstOrCreate(['number' => $model->cluster]);
+            $precinct = Precinct::firstOrCreate(['number' => $model->precinct]);
 
             $precinct->cluster()->associate($cluster)->save();
             $cluster->place()->associate($place)->save();

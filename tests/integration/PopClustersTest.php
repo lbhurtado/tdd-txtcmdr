@@ -22,19 +22,24 @@ class PopClustersTest extends TestCase
         parent::setUp();
 
         $this->pop = Pop::create([
-            'region' => "REGION IV-A",
-            'province' => "BATANGAS",
-            'town' => "SANTA TERESITA",
-            'barangay' => "POBLACION I",
-            'place' => "STA. TERESITA CENTRAL SCHOOL, POBLACION II",
-            'cluster' => 2,
-            'precinct' => "0004A",
+            'region'    => "REGION IV-A",
+            'province'  => "BATANGAS",
+            'town'      => "SANTA TERESITA",
+            'barangay'  => "POBLACION I",
+            'place'     => "STA. TERESITA CENTRAL SCHOOL, POBLACION II",
+            'cluster'   => 2,
+            'precinct'  => "0004A",
             'registered_voters' => 196
         ]);
     }
 
     /** @test */
     function a_POP_conjures_a_connected_clustered_precinct() {
+        $this->assertEquals(
+            "0004A",
+            Precinct::findOrFail(1)->number
+        );
+
         $this->assertEquals(
             2,
             Precinct::whereNumber("4A")->firstOrFail()->cluster->number

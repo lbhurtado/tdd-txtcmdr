@@ -47,4 +47,19 @@ class WatcherTest extends TestCase
             'sqlite'
         );
     }
+
+    /** @test */
+    function a_watcher_can_be_instantiated_by_a_mobile_attribute_via_scope() {
+        $cluster = Cluster::create();
+
+        $user = User::create([
+            'name' => "Joe",
+            'mobile'=>"09189362340",
+            'password' => Hash::make('password')
+        ]);
+
+        Watcher::designate($cluster, $user);
+
+        $this->assertEquals("Joe", Watcher::hasMobile("639189362340")->firstOrFail()->user->name);
+    }
 }

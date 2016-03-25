@@ -56,4 +56,10 @@ class Cluster extends Model
         else
             return true;
     }
+
+    public function getClusteredPrecinctsAttribute() {
+        $cp = implode(' ', $this->precincts()->pluck('number')->toArray());
+
+        return $cp;
+    }
 }
