@@ -42,6 +42,7 @@ $factory->define(App\Precinct::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Cluster::class, function (Faker\Generator $faker) {
     return [
+        'number' => rand(1000000, 9999999),
         'place_id' => factory(\App\Place::class)->create()->id
     ];
 });

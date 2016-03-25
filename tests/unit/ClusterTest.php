@@ -27,4 +27,11 @@ class ClusterTest extends TestCase
 
         $this->assertRegExp($pattern, $cluster->token);
     }
+
+    /** @test */
+    function a_cluster_has_a_number() {
+        $cluster = Cluster::create(['number' => 2]);
+
+        $this->assertEquals(2, $cluster->number);
+    }
 }

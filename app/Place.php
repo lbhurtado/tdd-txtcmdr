@@ -13,6 +13,6 @@ class Place extends Model
     }
 
     function barangay() {
-        return $this->belongsTo(Town::class);
+        return $this->belongsTo(Barangay::class);
     }
 }

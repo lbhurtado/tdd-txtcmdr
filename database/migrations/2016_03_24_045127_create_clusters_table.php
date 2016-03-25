@@ -14,6 +14,7 @@ class CreateClustersTable extends Migration
     {
         Schema::create('clusters', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('number')->unsigned()->nullable()->index();
             $table->integer('place_id')->unsigned()->nullable()->index();
             $table->string('token')->index();
             $table->timestamps();

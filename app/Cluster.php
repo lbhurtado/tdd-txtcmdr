@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cluster extends Model
 {
+
+    protected $fillable = ['number'];
+
     function precincts() {
         return $this->hasMany(Precinct::class);
     }
