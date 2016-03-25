@@ -62,4 +62,18 @@ class Cluster extends Model
 
         return $cp;
     }
+
+    public function getDesignationAttribute() {
+        $input = array();
+
+        array_push($input, "Clustered Precincts " . $this->clustered_precincts);
+        array_push($input, "Cluster #" . $this->number);
+        array_push($input, $this->place->name);
+        array_push($input, $this->place->barangay->name);
+        array_push($input, $this->place->barangay->town->name);
+        array_push($input, $this->place->barangay->town->province->name);
+//        array_push($input, $this->place->barangay->town->province->region->name);
+
+        return implode("\n", $input);
+    }
 }

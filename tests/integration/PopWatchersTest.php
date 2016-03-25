@@ -136,4 +136,29 @@ class PopWatchersTest extends TestCase
             Watcher::hasMobile("09189362340")->firstOrFail()->cluster->clustered_precincts
         );
     }
+
+    /** @test */
+    function cluster_has_a_designation_attribute() {
+        $cluster = Cluster::find(1);
+
+        $watcher = Watcher::autoDesignate($cluster->token, [
+            'mobile' => "09189362340",
+            'handle' => "lbhurtado"
+        ]);
+
+        $input = array();
+
+        array_push($input, "Clustered Precincts 0001A 0002A 0003A");
+        array_push($input, "Cluster #1");
+        array_push($input, "STA. TERESITA CENTRAL SCHOOL, POBLACION II");
+        array_push($input, "POBLACION I");
+        array_push($input, "SANTA TERESITA");
+        array_push($input, "BATANGAS");
+//        array_push($input, "REGION IV-A");
+
+        $this->assertEquals(
+            implode("\n", $input),
+            Watcher::hasMobile("09189362340")->firstOrFail()->cluster->designation
+        );
+    }
 }

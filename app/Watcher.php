@@ -41,7 +41,7 @@ class Watcher extends Model
         if (preg_match(User::$mobileRegex, $mobile, $matches))
             $mobile = User::$defaultCountryCode . $matches['telco'] . $matches['number'];
 
-        return $query->whereHas('user', function($q) use ($mobile){
+        return $query->with('user')->whereHas('user', function($q) use ($mobile){
             $q->where('mobile', '=', $mobile);
         });
     }
