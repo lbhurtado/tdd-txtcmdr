@@ -161,4 +161,11 @@ class PopWatchersTest extends TestCase
             Watcher::hasMobile("09189362340")->firstOrFail()->cluster->designation
         );
     }
+
+    /** @test */
+    function cluster_has_a_total_registered_voters_attribute() {
+        $cluster = Cluster::find(1);
+
+        $this->assertEquals(537, $cluster->total_registered_voters);
+    }
 }

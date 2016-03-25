@@ -43,9 +43,9 @@ class Cluster extends Model
      */
     protected function generateToken()
     {
-        $nonconfusingletters = "FHJKMNPRTVWXY";
+        $non_confusing_letters = "FHJKMNPRTVWXY";
 
-        $alpha = substr(str_shuffle($nonconfusingletters), 0, 3);
+        $alpha = substr(str_shuffle($non_confusing_letters), 0, 3);
 
         $numeric = rand(1, 9) . rand(1, 9) . rand(1, 9) . rand(1, 9);
 
@@ -75,5 +75,10 @@ class Cluster extends Model
 //        array_push($input, $this->place->barangay->town->province->region->name);
 
         return implode("\n", $input);
+    }
+
+    public function getTotalRegisteredVotersAttribute() {
+
+        return $this->precincts->sum('registered_voters');
     }
 }
