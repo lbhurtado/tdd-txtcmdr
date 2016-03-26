@@ -153,4 +153,16 @@ class User extends Authenticatable
             throw new Exception("Invalid user type");
         }
     }
+
+    public function activity() {
+        return $this->hasMany(Activity::class)->with(['user', 'subject'])->latest();
+    }
+
+    public function recordActivity($name, $related) {
+        if ( ! method_exists($related, 'recordActivity')) {
+            throw new \Exception('..');
+        }
+
+        return $related->recordActivity($name);
+    }
 }

@@ -29,3 +29,15 @@ Route::get('/', function () {
 Route::group(['middleware' => ['web']], function () {
     //
 });
+
+Route::get('users/{username}', function($username) {
+    return $username;
+});
+
+Route::get('users/{username}/activity', 'ActivitiesController@show');
+
+Route::get('users/{username}/favorite', function(App\User $user) {
+    $post = \App\Post::first();
+
+    $user->recordActivity('favorited', $post);
+});

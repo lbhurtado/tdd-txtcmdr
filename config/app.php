@@ -148,8 +148,6 @@ return [
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
-        Laracasts\Generators\GeneratorsServiceProvider::class,
-
         /*
          * Application Service Providers...
          */

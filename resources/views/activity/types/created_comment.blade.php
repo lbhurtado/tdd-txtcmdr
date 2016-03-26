@@ -1,0 +1,1 @@
+{{ $event->user->name }} made a comment {{ $event->created_at->diffForHumans() }}

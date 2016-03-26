@@ -4,6 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
+use App\Post;
+use App\Activity;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -28,6 +30,13 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-        //
+//        Post::created(function($post){
+//            Activity::create([
+//                'subject_id' => $post->id,
+//                'subject_type' => get_class($post),
+//                'name' => 'created_post',
+//                'user_id' => $post->user_id
+//            ]);
+//        });
     }
 }
