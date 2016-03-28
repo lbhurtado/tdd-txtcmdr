@@ -110,7 +110,8 @@ class UserTest extends TestCase
     }
 
     /** @test */
-    function a_user_has_a_handle_that_defaults_to_the_mobile() {
+    function a_user_has_a_handle_that_defaults_to_the_mobile()
+    {
         $user1 = User::create(['mobile' => "09189362340", 'handle' => "lbhurtado"]);
 
         $this->assertEquals("lbhurtado", $user1->handle);
@@ -120,4 +121,14 @@ class UserTest extends TestCase
         $this->assertEquals("639173011987", $user2->handle);
     }
 
+    /** @test */
+    function a_user_has_a_scoped_mobile_attribute() {
+
+        User::create(['mobile' => "09189362340", 'handle' => "lbhurtado"]);
+
+        User::create(['mobile' => "09173011987"]);
+
+        $this->assertEquals("lbhurtado", User::hasMobile('09189362340')->firstOrFail()->handle);
+
+    }
 }

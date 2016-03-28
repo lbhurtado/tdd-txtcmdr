@@ -9,6 +9,8 @@ class Cluster extends Model
 
     protected $fillable = ['number'];
 
+    public static $token_pattern = "/^([A-Z]{3})(\\d{4})$/";
+
     function precincts() {
         return $this->hasMany(Precinct::class);
     }

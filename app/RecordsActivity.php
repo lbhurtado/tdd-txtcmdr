@@ -47,4 +47,9 @@ trait RecordsActivity
             'created', 'deleted', 'updated'
         ];
     }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

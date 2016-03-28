@@ -97,10 +97,12 @@ class ClusterWatchersTest extends TestCase
     function a_watcher_can_be_automatically_designated_to_a_cluster_using_token_from_a_mobile() {
         $cluster = Cluster::create();
 
-        $watcher = Watcher::autoDesignate($cluster->token, [
-            'mobile' => "09189362340",
-            'handle' => "lbhurtado"
-        ]);
+        $watcher = Watcher::autoDesignate($cluster->token,
+            [
+                'mobile' => "09189362340",
+                'handle' => "lbhurtado"
+            ]
+        );
 
         $this->assertEquals(
             "639189362340",

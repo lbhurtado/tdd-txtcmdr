@@ -3,17 +3,14 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Pop;
-use App\Region;
-use App\Province;
-use App\Town;
-use App\Barangay;
-use App\Place;
-use App\Cluster;
-use App\Precinct;
 use App\Watcher;
+use App\Missive;
+use App\Pop;
+use App\Cluster;
+use App\User;
+use App\Post;
 
-class PopWatchersTest extends TestCase
+class WatcherMissivesTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -88,84 +85,84 @@ class PopWatchersTest extends TestCase
     }
 
     /** @test */
-    function auto_designate_pop() {
-        $cluster = Cluster::find(1);
+    function a_missive_can_auto_designate_a_watcher()
+    {
+        $cluster = Cluster::findOrFail(1);
 
-        $watcher = Watcher::autoDesignate($cluster->token, [
+        Missive::create([
             'mobile' => "09189362340",
-            'handle' => "lbhurtado"
+            'body' => $cluster->token
         ]);
 
         $this->assertEquals(
-            "STA. TERESITA CENTRAL SCHOOL, POBLACION II",
-            Watcher::find($watcher->id)->cluster->place->name
-        );
-
-        $this->assertEquals(
-            "POBLACION I",
-            Watcher::find($watcher->id)->cluster->place->barangay->name
-        );
-
-        $this->assertEquals(
-            "SANTA TERESITA",
-            Watcher::find($watcher->id)->cluster->place->barangay->town->name
-        );
-
-        $this->assertEquals(
-            "BATANGAS",
-            Watcher::find($watcher->id)->cluster->place->barangay->town->province->name
+            "639189362340",
+            Watcher::with('user')->whereHas('user', function($q){
+                $q->where('mobile', '=', "639189362340");
+            })->firstOrFail()->user->handle
         );
 
         $this->assertEquals(
             "REGION IV-A",
-            Watcher::find($watcher->id)->cluster->place->barangay->town->province->region->name
+            Watcher::with('user')->whereHas('user', function($q){
+                $q->where('mobile', '=', "639189362340");
+            })->firstOrFail()->cluster->place->barangay->town->province->region->name
         );
     }
 
     /** @test */
-    function cluster_has_a_clustered_precincts_attribute() {
-        $token = Cluster::find(1)->token;
+    function a_missive_can_auto_create_a_user()
+    {
+        Missive::create([
+            'mobile' => "09181234567",
+            'body' => "ABC"
+        ]);
 
-        Watcher::autoDesignate(
-            $token,
-            [
-                'mobile' => "09189362340",
-                'handle' => "lbhurtado"
-            ]
-        );
+        $this->assertEquals('639181234567', User::find(1)->mobile);
+    }
+
+    /** @test */
+    function a_missive_can_trigger_a_post()
+    {
+        $cluster = Cluster::findOrFail(1);
+
+        Missive::create([
+            'mobile' => "09189362340",
+            'body' => $cluster->token
+        ]);
+
+        Missive::create([
+            'mobile' => "09189362340",
+            'body' => "#start The quick brown fox..."
+        ]);
 
         $this->assertEquals(
-            "0001A 0002A 0003A",
-            Watcher::hasMobile("09189362340")->firstOrFail()->cluster->clustered_precincts
+            "The quick brown fox...",
+            Post::with('user')->whereHas('user', function($q){
+                $q->whereMobile("639189362340");
+            })->where('title','=',"start")->firstOrFail()->body
         );
     }
 
     /** @test */
-    function cluster_has_a_designation_attribute() {
-        $token = Cluster::find(1)->token;
+    function multiple_missives_with_the_same_content_will_be_discarded()
+    {
+        $cluster = Cluster::findOrFail(1);
 
-        Watcher::autoDesignate($token, ['mobile' => "09189362340"]);
+        Missive::create([
+            'mobile' => "09189362340",
+            'body' => $cluster->token
+        ]);
 
-        $input = array();
-
-        array_push($input, "Clustered Precincts 0001A 0002A 0003A");
-        array_push($input, "Cluster #1");
-        array_push($input, "STA. TERESITA CENTRAL SCHOOL, POBLACION II");
-        array_push($input, "POBLACION I");
-        array_push($input, "SANTA TERESITA");
-        array_push($input, "BATANGAS");
-//        array_push($input, "REGION IV-A");
+        Missive::create([
+            'mobile' => "09189362340",
+            'body' => "#start The quick brown fox..."
+        ]);
 
         $this->assertEquals(
-            implode("\n", $input),
-            Watcher::hasMobile("09189362340")->firstOrFail()->cluster->designation
+            "The quick brown fox...",
+            Post::with('user')->whereHas('user', function($q){
+                $q->whereMobile("639189362340");
+            })->where('title','=',"start")->firstOrFail()->body
         );
-    }
-
-    /** @test */
-    function cluster_has_a_total_registered_voters_attribute() {
-        $cluster = Cluster::find(1);
-
-        $this->assertEquals(537, $cluster->total_registered_voters);
     }
 }
