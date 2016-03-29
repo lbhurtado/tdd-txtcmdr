@@ -79,10 +79,15 @@ class Watcher extends Model
         {
             if (preg_match($value, $missive->body, $matches))
             {
-                $post = new Post([
+                $post = Post::firstOrNew([
                     'title' => $matches['tag'],
                     'body' => $matches['message'],
                 ]);
+
+//                $post = new Post([
+//                    'title' => $matches['tag'],
+//                    'body' => $matches['message'],
+//                ]);
 
                 $post->user()->associate($this->user);
 

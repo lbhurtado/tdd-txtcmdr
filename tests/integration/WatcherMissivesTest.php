@@ -164,5 +164,14 @@ class WatcherMissivesTest extends TestCase
                 $q->whereMobile("639189362340");
             })->where('title','=',"start")->firstOrFail()->body
         );
+
+        $this->assertCount(1, Post::all());
+
+        Missive::create([
+            'mobile' => "09189362340",
+            'body' => "#start The quick brown fox..."
+        ]);
+
+        $this->assertCount(1, Post::all());
     }
 }

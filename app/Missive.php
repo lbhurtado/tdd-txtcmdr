@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\WatcherAutoDesignateException;
+use App\Events\MissiveWasPosted;
 
 class Missive extends Model
 {
@@ -63,5 +64,14 @@ class Missive extends Model
         {
             User::create(['mobile' => $this->mobile]);
         }
+    }
+
+    public static function post($mobile, $body)
+    {
+        $missive = static::create(compact('mobile', 'body'));
+
+        $missive->raise(new MissiveWasPosted($missive));
+
+        return $missive;
     }
 }

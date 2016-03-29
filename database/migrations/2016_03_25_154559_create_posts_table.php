@@ -17,7 +17,8 @@ class CreatePostsTable extends Migration
             $table->integer('user_id')->index();
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('title')->index();
-            $table->text('body');
+            $table->text('body')->index();
+            $table->unique(['user_id', 'title', 'body']);
             $table->timestamps();
         });
     }
