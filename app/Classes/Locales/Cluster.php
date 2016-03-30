@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Classes\Locales;
 
+use App\Classes\Watcher;
 use Illuminate\Database\Eloquent\Model;
 
 class Cluster extends Model
@@ -12,7 +13,7 @@ class Cluster extends Model
     public static $token_pattern = "/^([A-Z]{3})(\\d{4})$/";
 
     function precincts() {
-        return $this->hasMany(Precinct::class);
+        return $this->hasMany(\App\Classes\Locales\Precinct::class);
     }
 
     function place() {

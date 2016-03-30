@@ -6,7 +6,7 @@
  * Time: 00:55
  */
 
-namespace App;
+namespace App\Classes;
 
 use Illuminate\Support\Facades\Validator;
 

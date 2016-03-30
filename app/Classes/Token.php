@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Classes;
 
+use App\Classes\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Token extends Model

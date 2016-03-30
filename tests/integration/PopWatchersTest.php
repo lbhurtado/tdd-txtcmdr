@@ -3,15 +3,15 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Pop;
-use App\Region;
-use App\Province;
-use App\Town;
-use App\Barangay;
-use App\Place;
-use App\Cluster;
-use App\Precinct;
-use App\Watcher;
+use App\Classes\Locales\Pop;
+use App\Classes\Locales\Region;
+use App\Classes\Locales\Province;
+use App\Classes\Locales\Town;
+use App\Classes\Locales\Barangay;
+use App\Classes\Locales\Place;
+use App\Classes\Locales\Cluster;
+use App\Classes\Locales\Precinct;
+use App\Classes\Watcher;
 
 class PopWatchersTest extends TestCase
 {

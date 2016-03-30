@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('userable_type')->nullable();
             $table->string('password', 60);
             $table->string('handle')->nullable();
-//            $table->integer('group_id')->unsigned()->nullable()->index();
+            $table->boolean('notify');
             $table->rememberToken();
             $table->timestamps();
         });

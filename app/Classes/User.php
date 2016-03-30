@@ -1,10 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Classes;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Support\Facades\Validator;
-use App\Token;
 use Exception;
 
 class User extends Authenticatable
@@ -21,6 +19,7 @@ class User extends Authenticatable
 
     protected $attributes = array(
         'verified' => false,
+        'notify' => false,
         'password' => "4321"
     );
 
@@ -101,5 +100,12 @@ class User extends Authenticatable
         $model = parent::create($attributes);
 
         return $model;
+    }
+
+    public function updateCredentials($input)
+    {
+        $this->notify = isset($input['notify']) ? 1 : 0;
+
+        $this->save();
     }
 }

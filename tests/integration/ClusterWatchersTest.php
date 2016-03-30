@@ -3,9 +3,9 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Cluster;
-use App\User;
-use App\Watcher;
+use App\Classes\Locales\Cluster;
+use App\Classes\User;
+use App\Classes\Watcher;
 
 class ClusterWatchersTest extends TestCase
 {

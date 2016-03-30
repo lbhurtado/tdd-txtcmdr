@@ -3,9 +3,9 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Comment;
-use App\User;
-use App\Post;
+use App\Classes\Comment;
+use App\Classes\User;
+use App\Classes\Post;
 
 class CommentTest extends TestCase
 {

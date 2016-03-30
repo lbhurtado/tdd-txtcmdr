@@ -3,8 +3,8 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Barangay;
-use App\Town;
+use App\Classes\Locales\Barangay;
+use App\Classes\Locales\Town;
 
 class TownBarangaysTest extends TestCase
 {

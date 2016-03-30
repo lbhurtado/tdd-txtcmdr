@@ -3,9 +3,9 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Precinct;
-use App\Cluster;
-use App\Place;
+use App\Classes\Locales\Precinct;
+use App\Classes\Locales\Cluster;
+use App\Classes\Locales\Place;
 
 class PlaceClustersTest extends TestCase
 {

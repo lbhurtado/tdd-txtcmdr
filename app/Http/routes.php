@@ -36,8 +36,12 @@ Route::get('users/{username}', function($username) {
 
 Route::get('users/{username}/activity', 'ActivitiesController@show');
 
-Route::get('users/{username}/favorite', function(App\User $user) {
-    $post = \App\Post::first();
+Route::get('users/{username}/favorite', function(\App\Classes\User $user) {
+    $post = \App\Classes\Post::first();
 
     $user->recordActivity('favorited', $post);
 });
+
+Auth::loginUsingId(1);
+
+Route::resource('users', 'UsersController');

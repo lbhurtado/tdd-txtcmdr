@@ -3,9 +3,9 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Missive;
-use App\User;
-use App\Activity;
+use App\Classes\Missive;
+use App\Classes\User;
+use App\Classes\Activity;
 
 class MissiveTest extends TestCase
 {

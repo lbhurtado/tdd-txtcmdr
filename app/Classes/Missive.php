@@ -1,7 +1,9 @@
 <?php
 
-namespace App;
+namespace App\Classes;
 
+use App\Classes\Locales\Cluster;
+use App\Classes\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\WatcherAutoDesignateException;

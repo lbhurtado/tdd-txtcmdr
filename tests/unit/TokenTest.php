@@ -3,8 +3,8 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Token;
-use App\User;
+use App\Classes\Token;
+use App\Classes\User;
 
 class TokenTest extends TestCase
 {

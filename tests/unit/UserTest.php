@@ -8,7 +8,7 @@
  */
 
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\User;
+use App\Classes\User;
 
 class UserTest extends TestCase
 {

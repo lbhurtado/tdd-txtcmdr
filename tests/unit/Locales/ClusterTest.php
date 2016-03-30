@@ -3,8 +3,8 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Place;
-use App\Cluster;
+use App\Classes\Locales\Place;
+use App\Classes\Locales\Cluster;
 
 class ClusterTest extends TestCase
 {

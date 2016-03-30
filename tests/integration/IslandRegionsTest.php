@@ -3,8 +3,8 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Region;
-use App\Island;
+use App\Classes\Locales\Region;
+use App\Classes\Locales\Island;
 
 class IslandRegionsTest extends TestCase
 {

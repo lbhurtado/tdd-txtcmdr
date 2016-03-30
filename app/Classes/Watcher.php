@@ -1,7 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Classes;
 
+use App\Classes\Locales\Cluster;
 use Illuminate\Database\Eloquent\Model;
 use Exception;
 
@@ -40,6 +41,7 @@ class Watcher extends Model
         try
         {
             $user = User::create($attributes);
+
             $cluster = Cluster::where('token', '=', $token)->firstOrFail();
         }
         catch (Exception $e)
@@ -62,8 +64,6 @@ class Watcher extends Model
 
     public static $test = "Magic Mike";
 
-
-
     public static $patterns = array(
         'organization' => "/^#?(?<tag>start)\\s*(?<message>.*)$/i",
         'deployment' => "/^#?(?<tag>here)\\s*(?<message>.*)$/i",
@@ -83,11 +83,6 @@ class Watcher extends Model
                     'title' => $matches['tag'],
                     'body' => $matches['message'],
                 ]);
-
-//                $post = new Post([
-//                    'title' => $matches['tag'],
-//                    'body' => $matches['message'],
-//                ]);
 
                 $post->user()->associate($this->user);
 

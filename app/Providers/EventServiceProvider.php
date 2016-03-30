@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use App\Post;
-use App\Activity;
+use App\Classes\Post;
+use App\Classes\Activity;
 
 class EventServiceProvider extends ServiceProvider
 {

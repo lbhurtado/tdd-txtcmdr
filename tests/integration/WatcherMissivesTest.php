@@ -3,12 +3,12 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Watcher;
-use App\Missive;
-use App\Pop;
-use App\Cluster;
-use App\User;
-use App\Post;
+use App\Classes\Watcher;
+use App\Classes\Missive;
+use App\Classes\Locales\Pop;
+use App\Classes\Locales\Cluster;
+use App\Classes\User;
+use App\Classes\Post;
 
 class WatcherMissivesTest extends TestCase
 {

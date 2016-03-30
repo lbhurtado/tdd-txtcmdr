@@ -23,7 +23,7 @@ class EmailTest extends TestCase
 
         });
 
-        $this->seeEmailContains("Yo");
+        $this->seeEmailContains("Hello");
 //        $this->seeEmailsSent(2);
 //
 //        $this->seeEmailTo("foo@bar.com")

@@ -11,7 +11,7 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\User::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->name,
         'email' => $faker->email,
@@ -22,74 +22,74 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Group::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Group::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,
     ];
 });
 
-$factory->define(App\Token::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Token::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => factory(\App\User::class)->create()->id,
+        'user_id' => factory(\App\Classes\User::class)->create()->id,
     ];
 });
 
-$factory->define(App\Precinct::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Locales\Precinct::class, function (Faker\Generator $faker) {
     return [
         'number' => str_pad($faker->numberBetween(1,9999), 4, STR_PAD_LEFT) . $faker->randomElement(["A", "B", "C", "D", "E"]),
     ];
 });
 
-$factory->define(App\Cluster::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Locales\Cluster::class, function (Faker\Generator $faker) {
     return [
         'number' => rand(1000000, 9999999),
-        'place_id' => factory(\App\Place::class)->create()->id
+        'place_id' => factory(\App\Classes\Locales\Place::class)->create()->id
     ];
 });
 
-$factory->define(App\Place::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Locales\Place::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->company,
     ];
 });
 
-$factory->define(App\Barangay::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Locales\Barangay::class, function (Faker\Generator $faker) {
     return [
         'name' => "Barangay" . $faker->firstNameFemale,
     ];
 });
 
-$factory->define(App\Town::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Locales\Town::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->city,
     ];
 });
 
-$factory->define(App\Province::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Locales\Province::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->randomElement(["Ilocos Norte", "Ilocos Sur", "Pangasinan"]),
     ];
 });
 
-$factory->define(App\Region::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Locales\Region::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->randomElement(["Region I", "Region II", "Region III"]),
     ];
 });
 
-$factory->define(App\Island::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Locales\Island::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->randomElement(["Luzon", "Visayas", "Mindanao"]),
     ];
 });
 
-$factory->define(App\Watcher::class, function (Faker\Generator $faker) {
-    $cluster = factory(\App\Cluster::class)->create();
+$factory->define(\App\Classes\Watcher::class, function (Faker\Generator $faker) {
+    $cluster = factory(\App\Classes\Locales\Cluster::class)->create();
     $id = rand(1000000, 9999999);
-    $user = factory(\App\User::class)->create([
+    $user = factory(\App\Classes\User::class)->create([
         'id' => $id,
         'userable_id' => $id,
-        'userable_type' => \App\Watcher::class
+        'userable_type' => \App\Classes\Watcher::class
     ]);
     return [
         'id' => $id,
@@ -97,9 +97,9 @@ $factory->define(App\Watcher::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\Post::class, function (Faker\Generator $faker) {
+$factory->define(\App\Classes\Post::class, function (Faker\Generator $faker) {
     return [
-        'user_id' => factory(\App\User::class)->create()->id,
+        'user_id' => factory(\App\Classes\User::class)->create()->id,
         'title' => $faker->sentence,
         'body' => $faker->paragraph
     ];

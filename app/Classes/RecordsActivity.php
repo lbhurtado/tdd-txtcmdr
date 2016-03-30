@@ -6,12 +6,10 @@
  * Time: 00:35
  */
 
-namespace App;
-
+namespace App\Classes;
 
 trait RecordsActivity
 {
-
     protected static function bootRecordsActivity()
     {
         foreach (static::getModelEvents() as $event) {
