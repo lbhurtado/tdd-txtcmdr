@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Classes\Messaging\Mailers\UserMailer;
 use App\Classes\Messaging\Newsletters\NewsletterList;
 use Illuminate\Http\Request;
 
@@ -14,14 +15,20 @@ class UsersController extends Controller
 {
     private $newsletterList;
 
+    private $mailer;
+
     /**
      * UsersController constructor.
      */
-    public function __construct(NewsletterList $newsletterList)
+    public function __construct(NewsletterList $newsletterList, UserMailer $mailer)
     {
         $this->middleware('auth', ['only' => ['edit']]);
 
         $this->newsletterList = $newsletterList;
+
+        $this->mailer = $mailer;
+
+        dd($this->mailer);
     }
 
     public function edit($id)
