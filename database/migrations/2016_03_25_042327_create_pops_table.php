@@ -22,17 +22,18 @@ class CreatePopsTable extends Migration
             $table->string('cluster')->index(); //cluster id
             $table->string('precinct')->index(); //precinct number
             $table->integer('registered_voters')->unsigned()->nullable(); //count of registered voters
-            $table->unique(
-                [
+//            $table->unique(
+//                [
 //                    'region',
 //                    'province',
-                    'town',
-                    'barangay',
-                    'place',
-                    'cluster',
-                    'precinct'
-                ]
-            );
+//                    'town',
+//                    'barangay',
+//                    'place',
+//                    'cluster',
+//                    'precinct'
+//                ]
+//            );
+            
             $table->timestamps();
         });
     }
