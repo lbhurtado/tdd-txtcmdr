@@ -24,8 +24,8 @@ class CreatePopsTable extends Migration
             $table->integer('registered_voters')->unsigned()->nullable(); //count of registered voters
             $table->unique(
                 [
-                    'region',
-                    'province',
+//                    'region',
+//                    'province',
                     'town',
                     'barangay',
                     'place',
