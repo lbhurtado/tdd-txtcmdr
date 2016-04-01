@@ -11,6 +11,8 @@
 |
 */
 
+use Artisaninweb\SoapWrapper\Facades\SoapWrapper;
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -48,18 +50,36 @@ Route::resource('users', 'UsersController');
 
 Route::get('test', function() {
     $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
-    $client = new SoapClient($URL);
-    $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
+//    $client = new SoapClient($URL);
+//    $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
+//
+//    $method = 'SENDSMS';
+//    $parameters = array(
+//        array(
+//            'token' => $token,
+//            'msisdn' => '09189362340',
+//            'message' => 'The quick brown fox jumps over the lazy dog.'
+//        )
+//    );
+//    $return = $client->__call($method, $parameters);
+    SoapWrapper::add(function ($service) {
+        $service
+            ->name('SENDSMS')
+            ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
+            ->trace(true)                                                   // Optional: (parameter: true/false)
+            ->cache(WSDL_CACHE_BOTH);                                       // Optional: Set the WSDL cache
+    });
 
-    $method = 'SENDSMS';
-    $parameters = array(
-        array(
-            'token' => $token,
-            'msisdn' => '09189362340',
-            'message' => 'The quick brown fox jumps over the lazy dog.'
-        )
-    );
-    $return = $client->__call($method, $parameters);
+    $data = [
+        'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
+        'msisdn'        => '09189362340',
+        'message'       => 'Third message'
+    ];
+
+    // Using the added service
+    SoapWrapper::service('SENDSMS', function ($service) use ($data) {
+        $service->call('SENDSMS', [$data]);
+    });
 });
 
 Route::get('ip', function() {
@@ -72,4 +92,29 @@ Route::get('ip', function() {
 
 Route::get('info', function() {
     phpinfo();
+});
+
+Route::get('soap', function() {
+    // Add a new service to the wrapper
+    SoapWrapper::add(function ($service) {
+        $service
+            ->name('currency')
+            ->wsdl('http://currencyconverter.kowabunga.net/converter.asmx?WSDL')
+            ->trace(true)                                                   // Optional: (parameter: true/false)
+            ->cache(WSDL_CACHE_NONE)                                        // Optional: Set the WSDL cache
+            ->options(['login' => 'username', 'password' => 'password']);   // Optional: Set some extra options
+    });
+
+    $data = [
+        'CurrencyFrom' => 'USD',
+        'CurrencyTo'   => 'EUR',
+        'RateDate'     => '2014-06-05',
+        'Amount'       => '1000'
+    ];
+
+    // Using the added service
+    SoapWrapper::service('currency', function ($service) use ($data) {
+        var_dump($service->getFunctions());
+        var_dump($service->call('GetConversionAmount', [$data])->GetConversionAmountResult);
+    });
 });

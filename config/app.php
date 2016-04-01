@@ -150,6 +150,7 @@ return [
 
         Collective\Html\HtmlServiceProvider::class,
         SimpleSoftwareIO\SMS\SMSServiceProvider::class,
+        Artisaninweb\SoapWrapper\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -208,8 +209,8 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
 
+        'SoapWrapper' => Artisaninweb\SoapWrapper\Facades\SoapWrapper::class,
         'Form' => Collective\Html\FormFacade::class,
-//        'Html' => Illuminate\Html\HtmlFacade::class,
         'SMS' => SimpleSoftwareIO\SMS\Facades\SMS::class,
 
     ],
