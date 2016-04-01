@@ -69,3 +69,7 @@ Route::get('ip', function() {
 
     return $externalIp;
 });
+
+Route::get('info', function() {
+    phpinfo();
+});
