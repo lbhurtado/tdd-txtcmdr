@@ -11,8 +11,6 @@
 |
 */
 
-use SoapClient;
-
 Route::get('/', function () {
     return view('welcome');
 });
@@ -50,7 +48,7 @@ Route::resource('users', 'UsersController');
 
 Route::get('test', function() {
     $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
-    $client = new SoapClient($URL);
+    $client = new \SoapClient($URL);
     $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
 
     $method = 'SENDSMS';
