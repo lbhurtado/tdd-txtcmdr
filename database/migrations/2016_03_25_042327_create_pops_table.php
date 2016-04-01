@@ -33,7 +33,7 @@ class CreatePopsTable extends Migration
 //                    'precinct'
 //                ]
 //            );
-            
+
             $table->timestamps();
         });
     }
