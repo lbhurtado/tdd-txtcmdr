@@ -75,16 +75,16 @@ class SmartTransport implements Transport
     public function send(Message $message)
     {
         SoapWrapper::service(self::$SERVICE, function ($service) use ($message) {
-            $service->call(self::$SERVICE, $this->request([
+            $service->call(self::$SERVICE, [
                 'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
                 'msisdn'        => '09189362340',
                 'message'       => 'Mesage 1234'
-            ]));
+            ]);
         });
 
 //        $response = $this->client->post(self::$endpoint, $this->request($message));
 
-//        $message->sent();
+        $message->sent();
 
         return $message;
     }
