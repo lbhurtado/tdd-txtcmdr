@@ -88,7 +88,8 @@ Route::post('soap', function() {
             'message' => 'Here in Philam'
         )
     );
-    $return = $client->__call($method, $parameters);
+    
+    return $client->__call($method, $parameters);
 });
 
 Route::post('soapwrapper', function() {
