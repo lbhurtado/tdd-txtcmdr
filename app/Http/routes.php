@@ -136,6 +136,6 @@ Route::post('soapsmart', function() {
     // Using the added service
     SoapWrapper::service('SENDSMS', function ($service) use ($data) {
         var_dump($service->getFunctions());
-        var_dump($service->call('SENDSMS', [$data])->GETSMARTResponse);
+        var_dump($service->call('SENDSMS', [$data]));
     });
 });
