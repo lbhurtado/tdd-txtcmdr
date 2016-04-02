@@ -91,27 +91,7 @@ Route::post('soap', function() {
     $return = $client->__call($method, $parameters);
 });
 
-Route::post('smart', function() {
-//    SoapWrapper::add(function ($service) {
-//        $service
-//            ->name('SENDSMS')
-//            ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
-//            ->trace(true)                                                   // Optional: (parameter: true/false)
-//            ->cache(WSDL_CACHE_BOTH);                                       // Optional: Set the WSDL cache
-//    });
-//
-//    $data = [
-//        'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
-//        'msisdn'        => '09189362340',
-//        'message'       => 'Smart via SOAP'
-//    ];
-//
-//    // Using the added service
-//    SoapWrapper::service('SENDSMS', function ($service) use ($data) {
-//        $service->call('SENDSMS', [$data]);
-//    });
-
-// Add a new service to the wrapper
+Route::post('soapwrapper', function() {
     SoapWrapper::add(function ($service) {
         $service
             ->name('currency')
@@ -131,5 +111,27 @@ Route::post('smart', function() {
     SoapWrapper::service('currency', function ($service) use ($data) {
         var_dump($service->getFunctions());
         var_dump($service->call('GetConversionAmount', [$data])->GetConversionAmountResult);
+    });
+});
+
+Route::post('soapsmart', function() {
+    SoapWrapper::add(function ($service) {
+        $service
+            ->name('SENDSMS')
+            ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
+            ->trace(true)                                                   // Optional: (parameter: true/false)
+            ->cache(WSDL_CACHE_BOTH);                                       // Optional: Set the WSDL cache
+    });
+
+    $data = [
+        'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
+        'msisdn'        => '09189362340',
+        'message'       => 'Smart via SOAP'
+    ];
+
+    // Using the added service
+    SoapWrapper::service('SENDSMS', function ($service) use ($data) {
+        var_dump($service->getFunctions());
+        var_dump($service->call('SENDSMS', [$data]));
     });
 });
