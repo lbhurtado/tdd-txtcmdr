@@ -67,10 +67,6 @@ Route::post('test', function() {
 
 });
 
-Route::get('ip', function() {
-    return $_SERVER;
-});
-
 Route::get('info', function() {
     phpinfo();
 });
@@ -92,51 +88,4 @@ Route::post('soap', function() {
     $client->__call($method, $parameters);
 
     return "ok";
-});
-
-Route::post('soapwrapper', function() {
-    SoapWrapper::add(function ($service) {
-        $service
-            ->name('currency')
-            ->wsdl('http://currencyconverter.kowabunga.net/converter.asmx?WSDL')
-            ->trace(true)                                                   // Optional: (parameter: true/false)
-            ->cache(WSDL_CACHE_NONE);                                       // Optional: Set the WSDL cache
-    });
-
-    $data = [
-        'CurrencyFrom' => 'USD',
-        'CurrencyTo'   => 'EUR',
-        'RateDate'     => '2014-06-05',
-        'Amount'       => '1000'
-    ];
-
-    // Using the added service
-    SoapWrapper::service('currency', function ($service) use ($data) {
-        var_dump($service->getFunctions());
-        var_dump($service->call('GetConversionAmount', [$data])->GetConversionAmountResult);
-    });
-});
-
-Route::post('soapsmart', function() {
-    SoapWrapper::add(function ($service) {
-        $service
-            ->name('SENDSMS')
-            ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
-            ->trace(true)                                                   // Optional: (parameter: true/false)
-            ->cache(WSDL_CACHE_NONE);                                       // Optional: Set the WSDL cache
-    });
-
-    $data = [
-        'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
-        'msisdn'        => '09189362340',
-        'message'       => 'Smart via SOAP'
-    ];
-
-    // Using the added service
-    $soap = SoapWrapper::service('SENDSMS', function ($service) use ($data) {
-        var_dump($service->getFunctions());
-        var_dump($service->call('SENDSMS', [$data]));
-    });
-
-    var_dump($soap);
 });

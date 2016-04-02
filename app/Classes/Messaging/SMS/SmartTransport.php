@@ -20,8 +20,6 @@ class SmartTransport implements Transport
 
     private $token;
 
-    private $msisdn;
-
     /**
      * SmartTransport constructor.
      */
@@ -31,10 +29,10 @@ class SmartTransport implements Transport
 
         SoapWrapper::add(function ($service) {
             $service
-                ->name('SENDSMS')
-                ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
+                ->name(self::$SERVICE)
+                ->wsdl(self::$WSDL)
                 ->trace(true)                                                   // Optional: (parameter: true/false)
-                ->cache(WSDL_CACHE_BOTH);                                       // Optional: Set the WSDL cache
+                ->cache(WSDL_CACHE_NONE);                                       // Optional: Set the WSDL cache
         });
     }
 
@@ -46,14 +44,15 @@ class SmartTransport implements Transport
      */
     public function request(Message $message)
     {
-        $data = [
-            'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
-            'msisdn'        => '09189362340',
-            'message'       => 'Third message'
-//            'token'     => $this->token,
-//            'msisdn'    => $message->to[0]['mobile'],
-//            'message'   => $message->content['body']
-        ];
+        $data = [];
+
+        foreach ($message->to as $addressee) {
+            $data [] = [
+                'token'     => $this->token,
+                'msisdn'    => $addressee['mobile'],
+                'message'   => $message->content['body']
+            ];
+        }
 
         return $data;
     }
@@ -68,8 +67,10 @@ class SmartTransport implements Transport
     {
         $data = $this->request($message);
 
-        SoapWrapper::service('SENDSMS', function ($service) use ($data) {
-            $service->call('SENDSMS', [$data]);
+        SoapWrapper::service(self::$SERVICE, function ($service) use ($data) {
+            foreach ($data as $d) {
+                $service->call(self::$SERVICE, array($d));
+            }
         });
 
         $message->sent();

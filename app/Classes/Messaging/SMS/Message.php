@@ -57,6 +57,8 @@ class Message
     public function to($name, $mobile)
     {
         $this->to[] = array_merge(compact('name', 'mobile'), ['type' => 'to']);
+
+        return $this;
     }
 
     /**
@@ -68,6 +70,8 @@ class Message
     public function subject($subject)
     {
         $this->subject = $subject;
+
+        return $this;
     }
 
     /**
@@ -78,6 +82,8 @@ class Message
     public function sent()
     {
         $this->sent = true;
+
+        return $this;
     }
 
     /**
