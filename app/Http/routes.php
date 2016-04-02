@@ -13,6 +13,7 @@
 
 use Artisaninweb\SoapWrapper\Facades\SoapWrapper;
 use App\Classes\Messaging\SMS\SmartTransport;
+use App\Classes\Messaging\SMS\Message;
 
 Route::get('/', function () {
     return view('welcome');
