@@ -54,9 +54,9 @@ class Message
      * @param string $email
      * @return void
      */
-    public function to($name, $email)
+    public function to($name, $mobile)
     {
-        $this->to[] = array_merge(compact('name', 'email'), ['type' => 'to']);
+        $this->to[] = array_merge(compact('name', 'mobile'), ['type' => 'to']);
     }
 
     /**

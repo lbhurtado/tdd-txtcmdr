@@ -9,7 +9,7 @@
 namespace App\Classes\Messaging\SMS;
 
 
-class Mailer
+class Sender
 {
     /**
      * @var Transport

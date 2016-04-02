@@ -12,14 +12,24 @@ class LogTransportTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    public function should_send_message()
+    public function log_transport_should_send_message()
     {
         $logger = m::mock(Psr\Log\LoggerInterface::class);
 
         $logger->shouldReceive('debug')->once();
 
         $transport = new LogTransport($logger);
-        $message = $transport->send(new Message('template', []));
+
+        $message = new Message('template', [
+            'body' => "The quick brown fox...",
+            'footer' => "asdsad"
+        ]);
+
+
+        $message->to('Lester', '09173011987');
+
+        $message = $transport->send($message);
+
 
         $this->assertTrue($message->isSent());
     }

@@ -12,6 +12,7 @@
 */
 
 use Artisaninweb\SoapWrapper\Facades\SoapWrapper;
+use App\Classes\Messaging\SMS\SmartTransport;
 
 Route::get('/', function () {
     return view('welcome');
@@ -95,26 +96,16 @@ Route::get('info', function() {
 });
 
 Route::get('soap', function() {
-    // Add a new service to the wrapper
-    SoapWrapper::add(function ($service) {
-        $service
-            ->name('currency')
-            ->wsdl('http://currencyconverter.kowabunga.net/converter.asmx?WSDL')
-            ->trace(true)                                                   // Optional: (parameter: true/false)
-            ->cache(WSDL_CACHE_NONE)                                        // Optional: Set the WSDL cache
-            ->options(['login' => 'username', 'password' => 'password']);   // Optional: Set some extra options
-    });
+    $transport = new SmartTransport();
 
-    $data = [
-        'CurrencyFrom' => 'USD',
-        'CurrencyTo'   => 'EUR',
-        'RateDate'     => '2014-06-05',
-        'Amount'       => '1000'
-    ];
+    $message = new Message('template', [
+        'body' => "The quick brown fox...",
+        'footer' => "asdsad"
+    ]);
 
-    // Using the added service
-    SoapWrapper::service('currency', function ($service) use ($data) {
-        var_dump($service->getFunctions());
-        var_dump($service->call('GetConversionAmount', [$data])->GetConversionAmountResult);
-    });
+    $message->to('Lester', '09173011987');
+
+    $message = $transport->send($message);
+
+    var_dump($message);
 });

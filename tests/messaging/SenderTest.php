@@ -4,10 +4,10 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Mockery as m;
-use App\Classes\Messaging\SMS\Mailer;
+use App\Classes\Messaging\SMS\Sender;
 use App\Classes\Messaging\SMS\Message;
 
-class MailerTest extends TestCase
+class SenderTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -17,7 +17,7 @@ class MailerTest extends TestCase
         $transport = m::mock(App\Classes\Messaging\SMS\Transport::class);
         $transport->shouldReceive('send')->once();
 
-        $mailer = new Mailer($transport);
+        $mailer = new Sender($transport);
         $mailer->send(new Message('template', []));
     }
 }

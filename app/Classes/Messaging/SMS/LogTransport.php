@@ -7,6 +7,7 @@
  */
 
 namespace App\Classes\Messaging\SMS;
+
 use Psr\Log\LoggerInterface;
 
 class LogTransport implements Transport
@@ -33,7 +34,7 @@ class LogTransport implements Transport
      */
     public function send(Message $message)
     {
-        $this->logger->debug('Mailer:', $message->toArray());
+        $this->logger->debug('Sender:', $message->toArray());
 
         $message->sent();
 
