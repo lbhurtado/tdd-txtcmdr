@@ -89,7 +89,7 @@ Route::get('ip', function() {
     preg_match('/Current IP Address: \[?([:.0-9a-fA-F]+)\]?/', $externalContent, $m);
     $externalIp = $m[1];
 
-    return Request::ip();
+    return $_SERVER['SERVER_ADDR'];
 });
 
 Route::get('info', function() {
