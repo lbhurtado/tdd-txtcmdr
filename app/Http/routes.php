@@ -50,7 +50,7 @@ Route::get('users/{username}/favorite', function(\App\Classes\User $user) {
 
 Route::resource('users', 'UsersController');
 
-Route::get('test', function() {
+Route::post('test', function() {
     $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
 //    $client = new SoapClient($URL);
 //    $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
