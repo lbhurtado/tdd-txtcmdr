@@ -123,7 +123,7 @@ Route::post('soapsmart', function() {
             ->name('SENDSMS')
             ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
             ->trace(true)                                                   // Optional: (parameter: true/false)
-            ->cache(WSDL_CACHE_BOTH);                                       // Optional: Set the WSDL cache
+            ->cache(WSDL_CACHE_NONE);                                       // Optional: Set the WSDL cache
     });
 
     $data = [
