@@ -64,24 +64,7 @@ Route::post('test', function() {
 //        )
 //    );
 //    $return = $client->__call($method, $parameters);
-    SoapWrapper::add(function ($service) {
-        $service
-            ->name('SENDSMS')
-            ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
-            ->trace(true)                                                   // Optional: (parameter: true/false)
-            ->cache(WSDL_CACHE_BOTH);                                       // Optional: Set the WSDL cache
-    });
 
-    $data = [
-        'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
-        'msisdn'        => '09189362340',
-        'message'       => 'Third message'
-    ];
-
-    // Using the added service
-    SoapWrapper::service('SENDSMS', function ($service) use ($data) {
-        $service->call('SENDSMS', [$data]);
-    });
 });
 
 Route::get('ip', function() {
@@ -106,4 +89,25 @@ Route::post('soap', function() {
         )
     );
     $return = $client->__call($method, $parameters);
+});
+
+Route::post('smart', function() {
+    SoapWrapper::add(function ($service) {
+        $service
+            ->name('SENDSMS')
+            ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
+            ->trace(true)                                                   // Optional: (parameter: true/false)
+            ->cache(WSDL_CACHE_BOTH);                                       // Optional: Set the WSDL cache
+    });
+
+    $data = [
+        'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
+        'msisdn'        => '09189362340',
+        'message'       => 'Smart via SOAP'
+    ];
+
+    // Using the added service
+    SoapWrapper::service('SENDSMS', function ($service) use ($data) {
+        $service->call('SENDSMS', [$data]);
+    });
 });
