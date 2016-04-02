@@ -84,8 +84,8 @@ Route::post('soap', function() {
     $parameters = array(
         array(
             'token' => $token,
-            'msisdn' => '09189362340',
-            'message' => 'Here in Philam'
+            'msisdn' => '09175560627',
+            'message' => 'Test Here in Philam'
         )
     );
 
