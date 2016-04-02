@@ -14,18 +14,21 @@ class TelerivetTransportTest extends TestCase
     /** @test */
     public function telerivet_transport_should_send_message()
     {
-        $message = (new Message('template',
-            [
-            'header' => "Header",
-            'body' => "Testing Telerivet from Laravel " . Carbon::now('Asia/Manila'),
-            'footer' => "Footer"
-            ]
-        ))->to('Globe', '09173011987')->to('Smart', '09189362340');
+        $message =
+            ( new Message
+            (
+                'sms.testing.transport',
+                [
+                    'header' => "Header",
+                    'body' => "Testing Telerivet API from Laravel " . Carbon::now('Asia/Manila'),
+                    'footer' => "Lester"
+                ]
+            ))
+                ->to('Globe', '09173011987')
+                ->to('Smart', '09189362340');
 
-        $transport = new TelerivetTransport();
+        $result = (new TelerivetTransport())->send($message);
 
-        $result = $transport->send($message);
-
-        $this->assertEquals(2, $result['count_queued']);
+        $this->assertTrue($message->isSent());
     }
 }

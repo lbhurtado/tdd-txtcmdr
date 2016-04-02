@@ -38,14 +38,11 @@ class TelerivetTransport implements Transport
      */
     public function request(Message $message)
     {
-//        dd($message->to);
-        $data = [
-            'content' => $message->content['body'],
-            'to_numbers' => array_pluck($message->to, 'mobile'),
+        $content = $message->composeMessage();
 
-        ];
+        $to_numbers = array_pluck($message->to, 'mobile');
 
-        return $data;
+        return compact('content', 'to_numbers');
     }
 
     /**
@@ -56,7 +53,11 @@ class TelerivetTransport implements Transport
      */
     public function send(Message $message)
     {
-        return $this->project->sendMessages($this->request($message));
+        $result = $this->project->sendMessages($this->request($message));
+
+        if ((int) $result['count_queued'] > 0) $message->sent();
+
+        return $message;
     }
 
 }

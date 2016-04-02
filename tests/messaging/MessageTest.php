@@ -30,14 +30,14 @@ class MessageTest extends TestCase
     }
 
     /** @test */
-    public function should_add_to_address()
+    public function should_add_to_mobile()
     {
         $message = new Message('template', ['name' => 'John']);
 
-        $message->to('John Smith', 'john@smith.com');
+        $message->to('John Smith', '639189362340');
 
         $this->assertEquals([
-            ['name' => 'John Smith', 'email' => 'john@smith.com', 'type' => 'to']
+            ['name' => 'John Smith', 'mobile' => '639189362340', 'type' => 'to']
         ], $message->to);
     }
 
@@ -48,13 +48,24 @@ class MessageTest extends TestCase
 
         $message->subject('subject');
 
-        $message->to('John Smith', 'john@smith.com');
+        $message->to('John Smith', '639189362340');
 
-        $this->assertEquals([
-            'template' => 'template',
-            'subject'  => 'subject',
-            'to'       => [['name' => 'John Smith', 'email' => 'john@smith.com', 'type' => 'to']],
-            'content'  => ['name' => 'John']
-        ], $message->toArray());
+        $this->assertEquals(
+            [
+                'template' => 'template',
+                'subject'  => 'subject',
+                'to'       => [
+                    [
+                        'name' => 'John Smith',
+                        'mobile' => '639189362340',
+                        'type' => 'to'
+                    ]
+                ],
+                'content'  =>
+                    [
+                        'name' => 'John'
+                    ]
+            ],
+            $message->toArray());
     }
 }

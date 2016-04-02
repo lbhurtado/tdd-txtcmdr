@@ -8,6 +8,8 @@
 
 namespace App\Classes\Messaging\SMS;
 
+use Illuminate\View\Factory;
+use Illuminate\Support\Facades\App;
 
 class Message
 {
@@ -37,21 +39,47 @@ class Message
     private $sent = false;
 
     /**
-     * @param string $template
+     * The Illuminate view factory.
+     *
+     * @var \Illuminate\View\Factory
+     */
+    protected $views;
+
+    /**
+     * @param $template
      * @param array $content
-     * @return void
      */
     public function __construct($template, array $content)
     {
         $this->template = $template;
         $this->content  = $content;
+        $this->views = App::make(Factory::class);
+    }
+
+    /**
+     * Composes a message.
+     *
+     * @return \Illuminate\View\Factory
+     */
+    public function composeMessage()
+    {
+        // Attempts to make a view.
+        // If a view can not be created; it is assumed that simple message is passed through.
+        try
+        {
+            return $this->views->make($this->template, $this->content)->render();
+        }
+        catch (\InvalidArgumentException $e)
+        {
+            return $this->view;
+        }
     }
 
     /**
      * Set the `to` field
      *
      * @param string $name
-     * @param string $email
+     * @param string $mobile
      * @return void
      */
     public function to($name, $mobile)
