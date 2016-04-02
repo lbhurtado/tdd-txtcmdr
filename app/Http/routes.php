@@ -97,6 +97,7 @@ Route::get('info', function() {
 });
 
 Route::post('soap', function() {
+    $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
     $client = new SoapClient($URL);
     $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
 
