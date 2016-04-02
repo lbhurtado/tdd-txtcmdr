@@ -96,17 +96,17 @@ Route::get('info', function() {
     phpinfo();
 });
 
-Route::get('soap', function() {
-    $transport = new SmartTransport();
+Route::post('soap', function() {
+    $client = new SoapClient($URL);
+    $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
 
-    $message = new Message('template', [
-        'body' => "The quick brown fox...",
-        'footer' => "asdsad"
-    ]);
-
-    $message->to('Lester', '09173011987');
-
-    $message = $transport->send($message);
-
-    var_dump($message);
+    $method = 'SENDSMS';
+    $parameters = array(
+        array(
+            'token' => $token,
+            'msisdn' => '09189362340',
+            'message' => 'The quick brown fox jumps over the lazy dog.'
+        )
+    );
+    $return = $client->__call($method, $parameters);
 });
