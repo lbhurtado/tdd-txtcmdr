@@ -8,7 +8,6 @@
 
 namespace App\Classes\Messaging\SMS;
 
-
 use Artisaninweb\SoapWrapper\Facades\SoapWrapper;
 
 class SmartTransport implements Transport
