@@ -85,7 +85,7 @@ Route::post('test', function() {
 });
 
 Route::get('ip', function() {
-    return $_SERVER['SERVER_ADDR'];
+    return $_SERVER;
 });
 
 Route::get('info', function() {
