@@ -86,7 +86,7 @@ Route::post('soap', function() {
             'token' => $token,
 //            'msisdn' => '09175560627',
             'msisdn' => '09173011987',
-            'message' => 'yesy, seyset sres'
+            'message' => 'smart via soap client'
         )
     );
 
