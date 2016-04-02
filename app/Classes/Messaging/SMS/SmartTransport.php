@@ -31,8 +31,8 @@ class SmartTransport implements Transport
 
         SoapWrapper::add(function ($service) {
             $service
-                ->name(self::$SERVICE)
-                ->wsdl(self::$WSDL)
+                ->name('SENDSMS')
+                ->wsdl('https://ws.smartmessaging.com.ph/soap/?wsdl')
                 ->trace(true)                                                   // Optional: (parameter: true/false)
                 ->cache(WSDL_CACHE_BOTH);                                       // Optional: Set the WSDL cache
         });
@@ -47,21 +47,13 @@ class SmartTransport implements Transport
     public function request(Message $message)
     {
         $data = [
-            'token'     => $this->token,
-            'msisdn'    => $message->to[0]['mobile'],
-            'message'   => $message->content['body']
+            'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
+            'msisdn'        => '09189362340',
+            'message'       => 'Third message'
+//            'token'     => $this->token,
+//            'msisdn'    => $message->to[0]['mobile'],
+//            'message'   => $message->content['body']
         ];
-
-        $message = array_merge($this->options, [
-            'to' => $message->to,
-            'global_merge_vars' => array_map(function ($content, $name) {
-                return compact('name', 'content');
-            }, $message->content, array_keys($message->content))
-        ]);
-
-//        $json = array_merge($data, compact('message'));
-
-//        return compact('json');
 
         return $data;
     }
@@ -74,15 +66,11 @@ class SmartTransport implements Transport
      */
     public function send(Message $message)
     {
-        SoapWrapper::service(self::$SERVICE, function ($service) use ($message) {
-            $service->call(self::$SERVICE, [
-                'token'         => '9f4fefe761c95853f9b6a2f4801a1ea6',
-                'msisdn'        => '09189362340',
-                'message'       => 'Mesage 1234'
-            ]);
-        });
+        $data = $this->request($message);
 
-//        $response = $this->client->post(self::$endpoint, $this->request($message));
+        SoapWrapper::service('SENDSMS', function ($service) use ($data) {
+            $service->call('SENDSMS', [$data]);
+        });
 
         $message->sent();
 
