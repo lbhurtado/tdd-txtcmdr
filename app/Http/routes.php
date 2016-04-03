@@ -16,7 +16,7 @@ use App\Classes\Messaging\SMS\SmartTransport;
 use App\Classes\Messaging\SMS\Message;
 use Carbon\Carbon;
 use App\Classes\Messaging\SMS\Sender;
-use SoapClient;
+use \SoapClient;
 
 Route::get('/', function () {
     return view('welcome');
