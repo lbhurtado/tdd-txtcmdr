@@ -16,7 +16,6 @@ use App\Classes\Messaging\SMS\SmartTransport;
 use App\Classes\Messaging\SMS\Message;
 use Carbon\Carbon;
 use App\Classes\Messaging\SMS\Sender;
-use \SoapClient;
 
 Route::get('/', function () {
     return view('welcome');
@@ -59,7 +58,7 @@ Route::get('info', function() {
 
 Route::post('soap', function() {
     $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
-    $client = new SoapClient($URL);
+    $client = new \SoapClient($URL);
     $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
 
     $method = 'SENDSMS';
