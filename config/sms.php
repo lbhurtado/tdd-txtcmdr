@@ -61,7 +61,7 @@
 
 
 return [
-    'driver' => 'smart',
+    'driver' => 'telerivet',
     'from' => '+13104992907',
     'callfire' => [
         'app_login' => 'Your CallFire API Login',
