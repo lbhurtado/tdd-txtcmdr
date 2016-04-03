@@ -30,8 +30,8 @@ class SmartTransport implements Transport
             $service
                 ->name(self::$SERVICE)
                 ->wsdl(self::$WSDL)
-                ->trace(true)                                                   // Optional: (parameter: true/false)
-                ->cache(WSDL_CACHE_NONE);                                       // Optional: Set the WSDL cache
+                ->trace(true)        ;                                           // Optional: (parameter: true/false)
+//                ->cache(WSDL_CACHE_NONE);                                       // Optional: Set the WSDL cache
         });
     }
 
