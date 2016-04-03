@@ -141,6 +141,13 @@ class WatcherMissivesTest extends TestCase
                 $q->whereMobile("639189362340");
             })->where('title','=',"start")->firstOrFail()->body
         );
+
+        $this->assertEquals(
+            "The quick brown fox...",
+            Post::with('user')->whereHas('user', function($q){
+                $q->whereMobile("639189362340");
+            })->where('body','=',"The quick brown fox...")->firstOrFail()->body
+        );
     }
 
     /** @test */

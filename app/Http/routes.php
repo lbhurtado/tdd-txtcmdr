@@ -117,7 +117,6 @@ Route::post('smart', function() {
     $transport->send($message);
 });
 
-$app->group(['prefix'=>'telerivet'], function ($app) {
-    $app->post('webhook', 'App\Http\Controllers\TelerivetController@webhook');
-
+Route::group(['prefix'=>'telerivet'], function ($app) {
+    Route::post('webhook', 'TelerivetController@webhook');
 });

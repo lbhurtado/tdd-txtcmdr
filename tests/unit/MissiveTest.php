@@ -39,6 +39,7 @@ class MissiveTest extends TestCase
 
         $this->assertEquals(2, Missive::hasMobile('09189362340')->count());
     }
+
 //
 //    /** @test */
 //    function a_missive_is_a_recorded_activity() {

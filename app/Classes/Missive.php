@@ -58,7 +58,9 @@ class Missive extends Model
 
     protected function spawn()
     {
-        if (preg_match(Cluster::$token_pattern, $this->body, $matches))
+        $tokenMatched = preg_match(Cluster::$token_pattern, $this->body, $matches);
+
+        if ($tokenMatched)
         {
             Watcher::autoDesignate($this->body, ['mobile' => $this->mobile]);
         }

@@ -7,29 +7,30 @@ use Illuminate\Database\Eloquent\Model;
 
 class Token extends Model
 {
-    protected $fillable = ['pin', 'user_id'];
+    protected $fillable = ['pin'];
 
     protected $casts = [
         'pin' => 'string',
     ];
 
-    function getZeroPaddedNumber($value, $padding, $pad_type = STR_PAD_LEFT) {
+    private function getZeroPaddedNumber($value, $padding)
+    {
         return str_pad($value, $padding, "0", STR_PAD_LEFT);
     }
 
-    public function __construct(array $attributes = array()) {
-        $this->setRawAttributes(
-            array_merge(
-                $this->attributes,
-                array('pin' => $this->getZeroPaddedNumber(random_int(0,9999), 4))
-            ),
-            true
-        );
+    public function __construct(array $attributes = array())
+    {
+        $pin = $this->getZeroPaddedNumber(random_int(0,9999), 4);
+
+        $mergedAttributes = array_merge($this->attributes, compact('pin'));
+
+        $this->setRawAttributes($mergedAttributes, true);
 
         parent::__construct($attributes);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }
