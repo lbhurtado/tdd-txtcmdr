@@ -14,6 +14,8 @@
 use Artisaninweb\SoapWrapper\Facades\SoapWrapper;
 use App\Classes\Messaging\SMS\SmartTransport;
 use App\Classes\Messaging\SMS\Message;
+use Carbon\Carbon;
+use App\Classes\Messaging\SMS\Sender;
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,23 +52,6 @@ Route::get('users/{username}/favorite', function(\App\Classes\User $user) {
 
 Route::resource('users', 'UsersController');
 
-Route::post('test', function() {
-    $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
-//    $client = new SoapClient($URL);
-//    $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
-//
-//    $method = 'SENDSMS';
-//    $parameters = array(
-//        array(
-//            'token' => $token,
-//            'msisdn' => '09189362340',
-//            'message' => 'The quick brown fox jumps over the lazy dog.'
-//        )
-//    );
-//    $return = $client->__call($method, $parameters);
-
-});
-
 Route::get('info', function() {
     phpinfo();
 });
@@ -88,4 +73,43 @@ Route::post('soap', function() {
     $client->__call($method, $parameters);
 
     return "ok";
+});
+
+Route::get('env', function () {
+//    $this->app['config']['sender.driver']
+   $environment = Config::get('sms.driver');
+
+    return $environment;
+});
+
+Route::post('send/{mobile}/{body}', function($mobile, $body) {
+    $message =
+        ( new Message
+        (
+            'sms.testing.transport',
+            [
+                'header' => "Text Commander:",
+                'body' => $body ,
+                'footer' => Carbon::now('Asia/Manila')
+            ]
+        ))
+            ->to('Anonymoud', $mobile);
+
+    $sender = $this->app->make(Sender::class);
+
+    $sender->send($message);
+});
+
+Route::post('smart', function() {
+    $message = (new Message('template',
+        [
+            'header' => "Text Commander:",
+            'body' => "Testing Smart Suite",
+            'footer' => Carbon::now('Asia/Manila')
+        ]
+    ))->to('Globe', '09173011987')->to('Smart', '09189362340');
+
+    $transport = new SmartTransport();
+
+    $transport->send($message);
 });

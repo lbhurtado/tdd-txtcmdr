@@ -163,6 +163,8 @@ return [
         \App\Classes\Messaging\Newsletters\NewsletterListServiceProvider::class,
         \App\Classes\Messaging\Notifications\NotificationsServiceProvider::class,
         \App\Classes\Messaging\Mailers\UserMailerServiceProvider::class,
+        \App\Classes\Messaging\SMS\SenderServiceProvider::class,
+
     ],
 
     /*

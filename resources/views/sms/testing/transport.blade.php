@@ -1,9 +1,13 @@
 @extends('sms')
 
+@section('header')
+{!! $header !!}
+@stop
+
 @section('body')
-    {!! $body !!}
+{!! $body !!}
 @stop
 
 @section('footer')
-    - {!! $footer !!}
+- {!! $footer !!}
 @stop

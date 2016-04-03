@@ -61,7 +61,7 @@
 
 
 return [
-    'driver' => 'twilio',
+    'driver' => 'log',
     'from' => '+13104992907',
     'callfire' => [
         'app_login' => 'Your CallFire API Login',
@@ -90,5 +90,12 @@ return [
         'account_sid' => 'AC1891a939d3be45eb71c9f8f0fbdc2441',
         'auth_token' => '465769b801dd7d1a7fac063820d31dff',
         'verify' => true,
-    ]
+    ],
+    'telerivet' => [
+        'api_key' => env('TELERIVET_API_KEY'),
+        'project_id' => env('TELERIVET_PROJECT_ID'),
+    ],
+    'smart' => [
+        'token' => env("SMARTSUITE_TOKEN"),
+    ],
 ];

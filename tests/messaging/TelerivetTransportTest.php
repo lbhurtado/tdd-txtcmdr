@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Classes\Messaging\SMS\TelerivetTransport;
 use App\Classes\Messaging\SMS\Message;
+use App\Classes\Messaging\SMS\Sender;
 use Carbon\Carbon;
 
 class TelerivetTransportTest extends TestCase
@@ -19,15 +20,15 @@ class TelerivetTransportTest extends TestCase
             (
                 'sms.testing.transport',
                 [
-                    'header' => "Header",
-                    'body' => "Testing Telerivet API from Laravel " . Carbon::now('Asia/Manila'),
-                    'footer' => "Lester"
+                    'header' => "Text Commander",
+                    'body' => "Testing " . __METHOD__ ,
+                    'footer' => Carbon::now('Asia/Manila')
                 ]
             ))
                 ->to('Globe', '09173011987')
                 ->to('Smart', '09189362340');
 
-        $result = (new TelerivetTransport())->send($message);
+        (new TelerivetTransport())->send($message);
 
         $this->assertTrue($message->isSent());
     }

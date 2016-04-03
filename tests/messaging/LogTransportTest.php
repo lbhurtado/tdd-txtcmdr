@@ -20,16 +20,14 @@ class LogTransportTest extends TestCase
 
         $transport = new LogTransport($logger);
 
-        $message = new Message('template', [
+        $message = new Message('sms.testing.transport', [
             'body' => "The quick brown fox...",
             'footer' => "asdsad"
         ]);
 
-
         $message->to('Lester', '09173011987');
 
         $message = $transport->send($message);
-
 
         $this->assertTrue($message->isSent());
     }
