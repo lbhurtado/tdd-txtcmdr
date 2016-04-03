@@ -61,7 +61,7 @@
 
 
 return [
-    'driver' => 'log',
+    'driver' => 'smart',
     'from' => '+13104992907',
     'callfire' => [
         'app_login' => 'Your CallFire API Login',
