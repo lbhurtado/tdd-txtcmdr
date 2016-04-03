@@ -16,6 +16,7 @@ use App\Classes\Messaging\SMS\SmartTransport;
 use App\Classes\Messaging\SMS\Message;
 use Carbon\Carbon;
 use App\Classes\Messaging\SMS\Sender;
+use App\Classes\Messaging\SMS\Facades\SMS;
 
 Route::get('/', function () {
     return view('welcome');
@@ -93,11 +94,13 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
                 'footer' => Carbon::now('Asia/Manila')
             ]
         ))
-            ->to('Anonymoud', $mobile);
+            ->to('Anonymous', $mobile);
 
-    $sender = $this->app->make(Sender::class);
+//    $sender = $this->app->make(Sender::class);
 
-    $sender->send($message);
+//    $sender->send($message);
+
+    SMS::send($message);
 });
 
 Route::post('smart', function() {
@@ -112,4 +115,9 @@ Route::post('smart', function() {
     $transport = new SmartTransport();
 
     $transport->send($message);
+});
+
+$app->group(['prefix'=>'telerivet'], function ($app) {
+    $app->post('webhook', 'App\Http\Controllers\TelerivetController@webhook');
+
 });

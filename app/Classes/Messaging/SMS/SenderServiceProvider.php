@@ -20,7 +20,7 @@ class SenderServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->singleton(Sender::class, function ($app) {
+        $this->app->singleton('sender', function ($app) {
             $manager = new TransportManager($app);
 
             return new Sender($manager->driver());

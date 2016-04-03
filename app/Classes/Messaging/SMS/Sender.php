@@ -17,6 +17,14 @@ class Sender
     private $transport;
 
     /**
+     * @return Transport
+     */
+    public function getTransport()
+    {
+        return $this->transport;
+    }
+
+    /**
      * @param Transport $transport
      * @return void
      */

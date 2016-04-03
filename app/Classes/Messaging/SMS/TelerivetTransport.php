@@ -9,9 +9,9 @@
 namespace App\Classes\Messaging\SMS;
 
 use \Telerivet_API;
-
-define('API_KEY', env('TELERIVET_API_KEY'));
-define('PROJECT_ID', env('TELERIVET_PROJECT_ID'));
+//
+//define('API_KEY', env('TELERIVET_API_KEY'));
+//define('PROJECT_ID', env('TELERIVET_PROJECT_ID'));
 define('ELOAD_ID', env('TELERIVET_ELOAD_SERVICE_ID'));
 
 class TelerivetTransport implements Transport
@@ -23,11 +23,11 @@ class TelerivetTransport implements Transport
     /**
      * TelerivetTransport constructor.
      */
-    public function __construct()
+    public function __construct($api_key, $project_id)
     {
-        $this->api = new Telerivet_API(API_KEY);
+        $this->api = new Telerivet_API($api_key);
 
-        $this->project = $this->api->initProjectById(PROJECT_ID);
+        $this->project = $this->api->initProjectById($project_id);
     }
 
     /**

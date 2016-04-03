@@ -40,9 +40,12 @@ class TransportManager extends Manager
      */
     protected function createTelerivetDriver()
     {
-//        $config = $this->app['config']->get('sms.telerivet', []);
+        $config = $this->app['config']->get('sms.telerivet', []);
 
-        return new TelerivetTransport();
+        return new TelerivetTransport(
+            $config['api_key'],
+            $config['project_id']
+        );
     }
 
     /**
