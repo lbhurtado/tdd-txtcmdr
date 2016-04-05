@@ -46,7 +46,7 @@ class MissiveTest extends TestCase
             'body'=>"The quick brown fox"
         ]);
 
-        $missive = App::make(App\Classes\Repositories\MissiveRepositoryInterface::class);
+        $missive = App::make(\App\Classes\Repositories\Interfaces\MissiveRepositoryInterface::class);
 
         $this->assertCount(1, $missive->getAll());
     }

@@ -91,10 +91,14 @@ class PopWatchersTest extends TestCase
     function auto_designate_pop() {
         $cluster = Cluster::find(1);
 
-        $watcher = Watcher::autoDesignate($cluster->token, [
-            'mobile' => "09189362340",
-            'handle' => "lbhurtado"
-        ]);
+        $watcher = App::make(\App\Classes\Repositories\Interfaces\WatcherRepositoryInterface::class)
+            ->autoDesignate(
+                $cluster->token,
+                [
+                    'mobile' => "09189362340",
+                    'handle' => "lbhurtado"
+                ]
+            );
 
         $this->assertEquals(
             "STA. TERESITA CENTRAL SCHOOL, POBLACION II",
@@ -126,13 +130,22 @@ class PopWatchersTest extends TestCase
     function cluster_has_a_clustered_precincts_attribute() {
         $token = Cluster::find(1)->token;
 
-        Watcher::autoDesignate(
-            $token,
-            [
-                'mobile' => "09189362340",
-                'handle' => "lbhurtado"
-            ]
-        );
+//        Watcher::autoDesignate(
+//            $token,
+//            [
+//                'mobile' => "09189362340",
+//                'handle' => "lbhurtado"
+//            ]
+//        );
+
+        App::make(\App\Classes\Repositories\Interfaces\WatcherRepositoryInterface::class)
+            ->autoDesignate(
+                $token,
+                [
+                    'mobile' => "09189362340",
+                    'handle' => "lbhurtado"
+                ]
+            );
 
         $this->assertEquals(
             "0001A 0002A 0003A",
@@ -144,7 +157,8 @@ class PopWatchersTest extends TestCase
     function cluster_has_a_designation_attribute() {
         $token = Cluster::find(1)->token;
 
-        Watcher::autoDesignate($token, ['mobile' => "09189362340"]);
+        App::make(\App\Classes\Repositories\Interfaces\WatcherRepositoryInterface::class)
+            ->autoDesignate($token, ['mobile' => "09189362340"]);
 
         $input = array();
 

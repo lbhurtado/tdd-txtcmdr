@@ -20,37 +20,37 @@ class Watcher extends Model
         return $this->belongsTo(Cluster::class, 'cluster_id');
     }
 
-    public static function designate(Cluster $cluster, User $user) {
-        try
-        {
-            $watcher = static::create()->cluster()->associate($cluster);
+//    public static function designate(Cluster $cluster, User $user) {
+//        try
+//        {
+//            $watcher = static::create()->cluster()->associate($cluster);
+//
+//            $watcher->user()->save($user);
+//
+//            $watcher->save();
+//        }
+//        catch (Exception $e)
+//        {
+//           return false;
+//        }
+//
+//        return $watcher;
+//    }
 
-            $watcher->user()->save($user);
-
-            $watcher->save();
-        }
-        catch (Exception $e)
-        {
-           return false;
-        }
-
-        return $watcher;
-    }
-
-    public static function autoDesignate($token, $attributes = []) {
-        try
-        {
-            $user = User::create($attributes);
-
-            $cluster = Cluster::where('token', '=', $token)->firstOrFail();
-        }
-        catch (Exception $e)
-        {
-            return false;
-        }
-
-        return static::designate($cluster, $user);
-    }
+//    public static function autoDesignate($token, $attributes = []) {
+//        try
+//        {
+//            $user = User::create($attributes);
+//
+//            $cluster = Cluster::where('token', '=', $token)->firstOrFail();
+//        }
+//        catch (Exception $e)
+//        {
+//            return false;
+//        }
+//
+//        return static::designate($cluster, $user);
+//    }
 
     public function scopeHasMobile($query, $mobile)
     {

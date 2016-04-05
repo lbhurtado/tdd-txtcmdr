@@ -6,6 +6,8 @@ use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 use App\Events\MissiveWasPosted;
 use App\Listeners\Logger;
+use App\Listeners\RegisterWatcher;
+use App\Listeners\Poster;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -20,6 +22,8 @@ class EventServiceProvider extends ServiceProvider
         ],
         MissiveWasPosted::class => [
             Logger::class,
+            RegisterWatcher::class,
+            Poster::class,
         ]
     ];
 

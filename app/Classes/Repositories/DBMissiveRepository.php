@@ -9,6 +9,7 @@
 namespace App\Classes\Repositories;
 
 use App\Classes\Missive;
+use App\Classes\Repositories\Interfaces\MissiveRepositoryInterface;
 
 class DbMissiveRepository implements MissiveRepositoryInterface
 {
@@ -19,6 +20,6 @@ class DbMissiveRepository implements MissiveRepositoryInterface
 
     public function find($id)
     {
-        return Missive::findOrFail($id);
+        return Missive::find($id);
     }
 }

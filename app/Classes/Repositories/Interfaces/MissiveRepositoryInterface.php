@@ -6,7 +6,7 @@
  * Time: 07:39
  */
 
-namespace App\Classes\Repositories;
+namespace App\Classes\Repositories\Interfaces;
 
 
 interface MissiveRepositoryInterface

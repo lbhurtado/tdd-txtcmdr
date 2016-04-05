@@ -9,13 +9,21 @@ use App\Classes\Locales\Pop;
 use App\Classes\Locales\Cluster;
 use App\Classes\User;
 use App\Classes\Post;
+use App\Commands\PostMissiveCommand;
+use App\Classes\Commanding\ValidationCommandBus;
+use App\Classes\Repositories\Interfaces\WatcherRepositoryInterface;
 
 class WatcherMissivesTest extends TestCase
 {
     use DatabaseTransactions;
 
-    protected function setUp() {
+    private $commandBus;
+
+    protected function setUp()
+    {
         parent::setUp();
+
+        $this->commandBus =  App::make(ValidationCommandBus::class);
 
         Pop::create([
             'region'    => "REGION IV-A",
@@ -89,23 +97,17 @@ class WatcherMissivesTest extends TestCase
     {
         $cluster = Cluster::findOrFail(1);
 
-        Missive::create([
-            'mobile' => "09189362340",
-            'body' => $cluster->token
-        ]);
+        $command = new PostMissiveCommand('09189362340', $cluster->token);
 
-        $this->assertEquals(
-            "639189362340",
-            Watcher::with('user')->whereHas('user', function($q){
-                $q->where('mobile', '=', "639189362340");
-            })->firstOrFail()->user->handle
-        );
+        $this->commandBus->execute($command);
+
+        $watcher = App::make(WatcherRepositoryInterface::class);
+
+        $this->assertEquals("639189362340", $watcher->find('639189362340')->user->handle);
 
         $this->assertEquals(
             "REGION IV-A",
-            Watcher::with('user')->whereHas('user', function($q){
-                $q->where('mobile', '=', "639189362340");
-            })->firstOrFail()->cluster->place->barangay->town->province->region->name
+            $watcher->find('639189362340')->cluster->place->barangay->town->province->region->name
         );
     }
 
@@ -114,15 +116,11 @@ class WatcherMissivesTest extends TestCase
     {
         $cluster = Cluster::findOrFail(1);
 
-        Missive::create([
-            'mobile' => "09189362340",
-            'body' => $cluster->token
-        ]);
+        $this->commandBus->execute(new PostMissiveCommand('09189362340', $cluster->token));
 
-        Missive::create([
-            'mobile' => "09189362340",
-            'body' => "#start The quick brown fox..."
-        ]);
+        $this->commandBus->execute(new PostMissiveCommand('09189362340', "#start The quick brown fox..."));
+
+        $this->assertCount(1, Post::all());
 
         $this->assertEquals(
             "The quick brown fox...",
@@ -144,15 +142,9 @@ class WatcherMissivesTest extends TestCase
     {
         $cluster = Cluster::findOrFail(1);
 
-        Missive::create([
-            'mobile' => "09189362340",
-            'body' => $cluster->token
-        ]);
+        $this->commandBus->execute(new PostMissiveCommand('09189362340', $cluster->token));
 
-        Missive::create([
-            'mobile' => "09189362340",
-            'body' => "#start The quick brown fox..."
-        ]);
+        $this->commandBus->execute(new PostMissiveCommand('09189362340', "#start The quick brown fox..."));
 
         $this->assertEquals(
             "The quick brown fox...",
@@ -163,10 +155,7 @@ class WatcherMissivesTest extends TestCase
 
         $this->assertCount(1, Post::all());
 
-        Missive::create([
-            'mobile' => "09189362340",
-            'body' => "#start The quick brown fox..."
-        ]);
+        $this->commandBus->execute(new PostMissiveCommand('09189362340', "#start The quick brown fox..."));
 
         $this->assertCount(1, Post::all());
     }

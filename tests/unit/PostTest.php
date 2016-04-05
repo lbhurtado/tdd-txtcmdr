@@ -13,8 +13,8 @@ class PostTest extends TestCase
     use DatabaseTransactions;
 
     /** @test */
-    function a_post_has_a_title_body_user_id() {
-
+    function a_post_has_a_title_body_user_id()
+    {
         $user = factory(User::class)->create(['name'=>"John"]);
 
         $post = (new Post([
@@ -35,18 +35,13 @@ class PostTest extends TestCase
     }
 
     /** @test */
-    function a_watcher_can_post() {
-        $cluster = Cluster::create();
+    function a_watcher_can_post()
+    {
+        $watcher = factory(Watcher::class)->create();
 
-        $watcher = Watcher::autoDesignate($cluster->token, [
-            'mobile' => "09189362340",
-            'handle' => "lbhurtado"
-        ]);
+        $post = factory(Post::class)->create(['title' => "Some Title"]);
 
-        $post = (new Post([
-            'title' => "Some Title",
-            'body' => "Some Body",
-        ]))->user()->associate($watcher->user);
+        $post->user()->associate($watcher->user);
 
         $post->save();
 
