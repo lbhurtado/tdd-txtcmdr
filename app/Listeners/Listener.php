@@ -8,11 +8,16 @@ use \ReflectionClass;
 
 abstract class Listener
 {
+    /**
+     * @param $event
+     * @return mixed
+     */
     public function handle($event)
     {
         $eventName = $this->getEventName($event);
 
-        if ($this->listenerIsRegistered($eventName)) {
+        if ($this->listenerIsRegistered($eventName))
+        {
             return call_user_func([$this, 'when' . $eventName], $event);
         }
     }
@@ -24,13 +29,13 @@ abstract class Listener
     protected function getEventName($event)
     {
         $eventName = (new \ReflectionClass($event))->getShortName();
+
         return $eventName;
     }
 
     /**
-     * @param $event
-     * @param $method
-     * @return mixed
+     * @param $eventName
+     * @return bool
      */
     protected function listenerIsRegistered($eventName)
     {

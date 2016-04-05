@@ -8,8 +8,17 @@
 
 namespace App\Classes\Repositories;
 
+use App\Classes\Missive;
 
-class DBMissiveRepository
+class DbMissiveRepository implements MissiveRepositoryInterface
 {
+    public function getAll()
+    {
+        return Missive::all();
+    }
 
+    public function find($id)
+    {
+        return Missive::findOrFail($id);
+    }
 }

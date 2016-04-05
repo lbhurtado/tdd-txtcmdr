@@ -8,8 +8,16 @@
 
 namespace App\Commands;
 
+use App\Classes\Commanding\CommandHandler;
+use App\Classes\Missive;
 
-class PostMissiveCommandHandler
+class PostMissiveCommandHandler extends CommandHandler
 {
+    public function handle($command)
+    {
+        $missive = Missive::post($command->mobile, $command->body);
+
+        $this->dispatcher->dispatch($missive->releaseEvents());
+    }
 
 }

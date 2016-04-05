@@ -24,13 +24,11 @@ class MissiveTest extends TestCase
 
         $this->assertEquals("639189362340", $missive->mobile);
 
-        $this->seeInDatabase(
-            'missives',
-            [
-                'mobile' => "639189362340",
-                'body' => "The quick brown fox"
-            ]
-        );
+        $mobile = "639189362340";
+
+        $body = "The quick brown fox";
+
+        $this->seeInDatabase('missives', compact('mobile', 'body'));
 
         Missive::create([
             'mobile' => "09189362340",
@@ -40,28 +38,16 @@ class MissiveTest extends TestCase
         $this->assertEquals(2, Missive::hasMobile('09189362340')->count());
     }
 
-//
-//    /** @test */
-//    function a_missive_is_a_recorded_activity() {
-//        $user = factory(User::class)->create();
-//
-//        $missive = new Missive(['body'=>"The quick brown fox"]);
-//
-//        $missive->user()->associate($user)->save();
-//
-//        $this->assertEquals(Missive::class, Activity::where('subject_id', '=', $missive->id)->first()->subject_type);
-//
-//        $this->assertEquals(1, Activity::where('subject_id', '=', $missive->id)->first()->user_id);
-//
-//        $this->assertEquals("created_missive", Activity::where('subject_id', '=', $missive->id)->first()->name);
-//
-//        $this->seeInDatabase(
-//            'activities',
-//            [
-//                'user_id' => 1,
-//                'name' => "created_missive",
-//                'subject_type' => Missive::class
-//            ]
-//        );
-//    }
+    /** @test */
+    function a_missive_can_be_taken_from_a_repository()
+    {
+        Missive::create([
+            'mobile' => "09189362340",
+            'body'=>"The quick brown fox"
+        ]);
+
+        $missive = App::make(App\Classes\Repositories\MissiveRepositoryInterface::class);
+
+        $this->assertCount(1, $missive->getAll());
+    }
 }

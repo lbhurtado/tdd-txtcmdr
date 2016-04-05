@@ -4,8 +4,8 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use App\Classes\Post;
-use App\Classes\Activity;
+use App\Events\MissiveWasPosted;
+use App\Listeners\Logger;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -18,6 +18,9 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\SomeEvent' => [
             'App\Listeners\EventListener',
         ],
+        MissiveWasPosted::class => [
+            Logger::class,
+        ]
     ];
 
     /**

@@ -10,5 +10,4 @@
 
 @section('footer')
 - {!! $footer !!}
-    by Lester
 @stop

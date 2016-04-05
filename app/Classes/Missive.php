@@ -2,6 +2,7 @@
 
 namespace App\Classes;
 
+use App\Classes\Eventing\EventGenerator;
 use App\Classes\Locales\Cluster;
 use App\Classes\User;
 use Illuminate\Database\Eloquent\Model;
@@ -11,9 +12,11 @@ use App\Events\MissiveWasPosted;
 
 class Missive extends Model
 {
-    protected $fillable = ['mobile', 'body'];
-
     use MobileTrait;
+
+    use EventGenerator;
+
+    protected $fillable = ['mobile', 'body'];
 
     protected static function boot()
     {
@@ -46,6 +49,9 @@ class Missive extends Model
                         $watcher->execute($this);
 
                         break;
+
+                    default:
+                        var_dump($type);
                 }
 
             }

@@ -110,17 +110,6 @@ class WatcherMissivesTest extends TestCase
     }
 
     /** @test */
-    function a_missive_can_auto_create_a_user()
-    {
-        Missive::create([
-            'mobile' => "09181234567",
-            'body' => "ABC"
-        ]);
-
-        $this->assertEquals('639181234567', User::find(1)->mobile);
-    }
-
-    /** @test */
     function a_missive_can_trigger_a_post()
     {
         $cluster = Cluster::findOrFail(1);
