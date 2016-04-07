@@ -10,8 +10,8 @@ class Watcher extends Model
 {
     protected $table = 'users_watchers';
 
-    public function user(){
-
+    public function user()
+    {
         return $this->morphOne(User::class, 'userable');
     }
 
@@ -19,38 +19,6 @@ class Watcher extends Model
 
         return $this->belongsTo(Cluster::class, 'cluster_id');
     }
-
-//    public static function designate(Cluster $cluster, User $user) {
-//        try
-//        {
-//            $watcher = static::create()->cluster()->associate($cluster);
-//
-//            $watcher->user()->save($user);
-//
-//            $watcher->save();
-//        }
-//        catch (Exception $e)
-//        {
-//           return false;
-//        }
-//
-//        return $watcher;
-//    }
-
-//    public static function autoDesignate($token, $attributes = []) {
-//        try
-//        {
-//            $user = User::create($attributes);
-//
-//            $cluster = Cluster::where('token', '=', $token)->firstOrFail();
-//        }
-//        catch (Exception $e)
-//        {
-//            return false;
-//        }
-//
-//        return static::designate($cluster, $user);
-//    }
 
     public function scopeHasMobile($query, $mobile)
     {
@@ -72,27 +40,4 @@ class Watcher extends Model
         'stray' => "/^#?(?<tag>stray)\\s*(?<message>.*)$/i",
         'transmission' => "/^#?(?<tag>tx)\\s*(?<message>.*)$/i",
     );
-
-    public function execute(Missive $missive)
-    {
-        foreach(self::$patterns as $key=>$value)
-        {
-            if (preg_match($value, $missive->body, $matches))
-            {
-                $post = Post::firstOrNew([
-                    'title' => $matches['tag'],
-                    'body' => $matches['message'],
-                ]);
-
-                $post->user()->associate($this->user);
-
-                $post->save();
-
-                return true;
-            }
-        }
-
-        return false;
-
-    }
 }

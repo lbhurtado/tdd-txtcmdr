@@ -18,7 +18,7 @@ trait MobileTrait
 
     public static $mobileRegex = "/^(?<country>0|63|\+63)(?<telco>9\d{2})(?<number>\d{7})$/";
 
-    protected static function formalize($mobile)
+    public static function formalize($mobile)
     {
         if (preg_match(static::$mobileRegex, $mobile, $matches))
             $mobile = static::$defaultCountryCode . $matches['telco'] . $matches['number'];

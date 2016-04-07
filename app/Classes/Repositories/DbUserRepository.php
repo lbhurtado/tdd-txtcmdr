@@ -10,6 +10,7 @@ namespace App\Classes\Repositories;
 
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 use App\Classes\User;
+use App\Classes\MobileTrait;
 
 class DbUserRepository implements UserRepositoryInterface
 {
@@ -20,6 +21,8 @@ class DbUserRepository implements UserRepositoryInterface
 
     public function find($mobile)
     {
+        $mobile = MobileTrait::formalize($mobile);
+
         return User::hasMobile($mobile)->first();
     }
 

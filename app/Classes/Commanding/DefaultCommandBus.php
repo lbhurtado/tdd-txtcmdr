@@ -18,6 +18,10 @@ class DefaultCommandBus implements CommandBus
 
     protected $commandTranslator;
 
+    private $queue = array();
+
+    private $isHandling = false;
+
     /**
      * CommandBus constructor.
      * @param $commandTranslator
@@ -32,8 +36,28 @@ class DefaultCommandBus implements CommandBus
 
     public function execute($command)
     {
-        $handler = $this->commandTranslator->toCommandHandler($command);
+        $this->queue[] = $command;
 
-        return $this->app->make($handler)->handle($command);
+        if (!$this->isHandling)
+        {
+            $this->isHandling = true;
+
+            while ($command = array_shift($this->queue))
+            {
+                $handler = $this->commandTranslator->toCommandHandler($command);
+
+                $this->app->make($handler)->handle($command);
+
+            }
+
+            $this->isHandling = false;
+        }
+
+
+// this the original
+        // it should work
+//        $handler = $this->commandTranslator->toCommandHandler($command);
+//
+//        return $this->app->make($handler)->handle($command);
     }
 }

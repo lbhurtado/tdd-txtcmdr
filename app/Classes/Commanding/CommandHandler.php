@@ -14,9 +14,13 @@ abstract class CommandHandler
 {
     protected $dispatcher;
 
-    public function __construct(EventDispatcher $dispatcher)
+    protected $commandBus;
+
+    public function __construct(EventDispatcher $dispatcher, DefaultCommandBus $commandBus)
     {
         $this->dispatcher = $dispatcher;
+
+        $this->commandBus = $commandBus;
     }
 
     abstract public function handle($command);

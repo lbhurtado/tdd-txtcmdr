@@ -10,6 +10,7 @@ namespace App\Commands;
 
 use App\Classes\Commanding\CommandHandler;
 use App\Classes\Missive;
+use App\Commands\RegisterUserCommand;
 
 class PostMissiveCommandHandler extends CommandHandler
 {
@@ -18,6 +19,10 @@ class PostMissiveCommandHandler extends CommandHandler
         $missive = Missive::post($command->mobile, $command->body);
 
         $this->dispatcher->dispatch($missive->releaseEvents());
+
+        $this->commandBus->execute(new RegisterUserCommand($command->mobile, $command->body));
+
+        $this->commandBus->execute(new PostKeywordCommand($command->mobile, $command->body));
     }
 
 }

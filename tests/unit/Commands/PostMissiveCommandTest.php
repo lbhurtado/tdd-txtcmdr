@@ -3,12 +3,12 @@
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
-use App\Commands\PostMissiveCommand;
 use App\Classes\Commanding\ValidationCommandBus;
+use App\Commands\PostMissiveCommand;
 use App\Classes\Locales\Cluster;
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 
-class CommandTest extends TestCase
+class PostMissiveCommandTest extends TestCase
 {
     use DatabaseTransactions;
 
@@ -22,7 +22,17 @@ class CommandTest extends TestCase
     }
 
     /** @test */
-    function post_missive_command_test()
+    function a_post_missive_command_has_mobile_validation()
+    {
+        $command = new PostMissiveCommand('09189362340', "");
+
+//        $this->setExpectedException('Exception');
+
+        $this->commandBus->execute($command);
+    }
+
+    /** @test */
+    function a_post_missive_command_creates_a_missive()
     {
         $command = new PostMissiveCommand('09189362340', 'Yes, yes, yo');
 
@@ -34,7 +44,7 @@ class CommandTest extends TestCase
     }
 
     /** @test */
-    function post_missive_command_creates_a_user()
+    function a_post_missive_command_creates_a_user()
     {
         $command = new PostMissiveCommand('09189362340', 'Yes, yes, yo');
 
@@ -50,7 +60,7 @@ class CommandTest extends TestCase
     }
 
     /** @test */
-    function post_missive_command_creates_a_watcher()
+    function a_post_missive_command_creates_a_watcher()
     {
         Cluster::create();
 
@@ -64,8 +74,8 @@ class CommandTest extends TestCase
 
         $this->assertCount(1, $watcher->getAll());
 
-//        $this->assertEquals('639189362340', $watcher->user->find('09189362340')->mobile);
+        $this->assertEquals('639189362340', $watcher->find('09189362340')->user->mobile);
 
-//        $this->assertEquals('639189362340', $watcher->find('09189362340')->handle);
+        $this->assertEquals('639189362340', $watcher->find('09189362340')->user->handle);
     }
 }

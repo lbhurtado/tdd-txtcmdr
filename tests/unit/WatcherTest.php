@@ -60,7 +60,7 @@ class WatcherTest extends TestCase
             'password' => Hash::make('password')
         ]);
 
-        $watcher = App::make(WatcherRepositoryInterface::class)->designate($cluster, $user);
+        App::make(WatcherRepositoryInterface::class)->designate($cluster, $user);
 
         $this->assertEquals("Joe", Watcher::hasMobile("639189362340")->firstOrFail()->user->name);
     }

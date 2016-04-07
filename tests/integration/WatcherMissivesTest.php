@@ -109,6 +109,8 @@ class WatcherMissivesTest extends TestCase
             "REGION IV-A",
             $watcher->find('639189362340')->cluster->place->barangay->town->province->region->name
         );
+
+        $this->assertCount(0, Post::all());
     }
 
     /** @test */

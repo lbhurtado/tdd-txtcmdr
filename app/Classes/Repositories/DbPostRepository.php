@@ -13,6 +13,11 @@ use App\Classes\Post;
 
 class DbPostRepository implements PostRepositoryInterface
 {
+    public function firstOrNew($attributes)
+    {
+        return Post::firstOrNew($attributes);
+    }
+
     public function getAll()
     {
         return Post::all();

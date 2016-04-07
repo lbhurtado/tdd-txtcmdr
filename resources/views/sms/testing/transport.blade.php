@@ -9,5 +9,5 @@
 @stop
 
 @section('footer')
-- {!! $footer !!}
+{!! $footer ?: "-HQ"!!}
 @stop

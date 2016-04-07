@@ -37,7 +37,8 @@ class ValidationCommandBus implements CommandBus
     {
         $validator = $this->commandTranslator->toValidator($command);
 
-        if (class_exists($validator)) {
+        if (class_exists($validator))
+        {
             $this->app->make($validator)->validate($command);
         }
 

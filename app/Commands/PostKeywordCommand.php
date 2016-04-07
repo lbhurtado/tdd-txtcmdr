@@ -2,21 +2,21 @@
 /**
  * Created by PhpStorm.
  * User: lbhurtado
- * Date: 04/04/16
- * Time: 19:35
+ * Date: 06/04/16
+ * Time: 15:23
  */
 
 namespace App\Commands;
 
 
-class PostMissiveCommand
+class PostKeywordCommand
 {
     public $mobile;
 
     public $body;
 
     /**
-     * PostMissiveCommand constructor.
+     * PostKeywordCommand constructor.
      * @param $body
      * @param $mobile
      */
@@ -26,4 +26,5 @@ class PostMissiveCommand
 
         $this->body = $body;
     }
+
 }

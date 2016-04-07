@@ -61,7 +61,7 @@
 
 
 return [
-    'driver' => 'telerivet',
+    'driver' => 'log',
     'from' => '+13104992907',
     'callfire' => [
         'app_login' => 'Your CallFire API Login',

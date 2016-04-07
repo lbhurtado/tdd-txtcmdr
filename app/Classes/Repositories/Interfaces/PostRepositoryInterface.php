@@ -11,6 +11,8 @@ namespace App\Classes\Repositories\Interfaces;
 
 interface PostRepositoryInterface
 {
+    public function firstOrNew($attributes);
+
     public function getAll();
 
     public function find($id);

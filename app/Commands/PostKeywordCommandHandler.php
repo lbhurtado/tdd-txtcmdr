@@ -1,21 +1,25 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: lbhurtado
+ * Date: 06/04/16
+ * Time: 15:29
+ */
 
-namespace App\Listeners;
+namespace App\Commands;
 
-use App\Events\MissiveWasPosted;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Classes\Commanding\CommandHandler;
 use App\Classes\Watcher;
-use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 use App\Classes\Repositories\Interfaces\PostRepositoryInterface;
+use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 
-class Poster extends Listener
+class PostKeywordCommandHandler extends CommandHandler
 {
-    public function whenMissiveWasPosted(MissiveWasPosted $event)
+    public function handle($command)
     {
         foreach(Watcher::$patterns as $key=>$value)
         {
-            if (preg_match($value, $event->missive->body, $matches))
+            if (preg_match($value, $command->body, $matches))
             {
                 $post = \App::make(PostRepositoryInterface::class)->firstOrNew(
                     [
@@ -23,7 +27,7 @@ class Poster extends Listener
                         'body' => $matches['message'],
                     ]);
 
-                $user = \App::make(UserRepositoryInterface::class)->find($event->missive->mobile);
+                $user = \App::make(UserRepositoryInterface::class)->find($command->mobile);
 
                 $post->user()->associate($user);
 
@@ -33,4 +37,5 @@ class Poster extends Listener
             }
         }
     }
+
 }
