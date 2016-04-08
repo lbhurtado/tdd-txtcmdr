@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Validator;
 class PostMissiveValidator
 {
     static $rules = [
-        'mobile' => array("regex: /^(?<country>0|63|\+63)(?<telco>9\d{2})(?<number>\d{7})$/"),
+        'mobile' => array('required', "regex: /^(?<country>0|63|\+63)(?<telco>9\d{2})(?<number>\d{7})$/"),
         'body' => 'required'
     ];
 

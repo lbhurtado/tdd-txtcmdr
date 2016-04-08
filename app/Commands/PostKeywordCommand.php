@@ -13,18 +13,23 @@ class PostKeywordCommand
 {
     public $mobile;
 
-    public $body;
+    public $keyword;
+
+    public $arguments;
 
     /**
      * PostKeywordCommand constructor.
-     * @param $body
      * @param $mobile
+     * @param $keyword
+     * @param $arguments
      */
-    public function __construct($mobile, $body)
+    public function __construct($mobile, $keyword, $arguments = null)
     {
         $this->mobile = $mobile;
 
-        $this->body = $body;
+        $this->keyword = $keyword;
+
+        $this->arguments = $arguments;
     }
 
 }

@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "91dde72960c4d9e19fce4aa960a63c9d",
-    "content-hash": "4ea1497f6e4020d1348981589ec203fb",
+    "hash": "fb1e724c03c5516ad9c058080e93541a",
+    "content-hash": "eb7e97ef3b9243b0cafaf829bee76b79",
     "packages": [
         {
             "name": "artisaninweb/laravel-soap",
@@ -373,6 +373,54 @@
                 "uri"
             ],
             "time": "2016-02-18 21:54:00"
+        },
+        {
+            "name": "hanneskod/classtools",
+            "version": "1.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hanneskod/classtools.git",
+                "reference": "3a1574b2f882a90488fea2c0a8fb4d45a97171df"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hanneskod/classtools/zipball/3a1574b2f882a90488fea2c0a8fb4d45a97171df",
+                "reference": "3a1574b2f882a90488fea2c0a8fb4d45a97171df",
+                "shasum": ""
+            },
+            "require": {
+                "nikic/php-parser": "~2.0",
+                "php": ">=5.5.0",
+                "symfony/finder": "~2.7|~3.0"
+            },
+            "require-dev": {
+                "hanneskod/readme-tester": "dev-master"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "hanneskod\\classtools\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "WTFPL"
+            ],
+            "authors": [
+                {
+                    "name": "Hannes Forsgård",
+                    "email": "hannes.forsgard@fripost.org"
+                }
+            ],
+            "description": "Find, extract and process classes from file system",
+            "homepage": "https://github.com/hanneskod/classtools",
+            "keywords": [
+                "class finder",
+                "code generator",
+                "metaprogramming",
+                "minimizer"
+            ],
+            "time": "2016-03-18 17:26:18"
         },
         {
             "name": "jakub-onderka/php-console-color",

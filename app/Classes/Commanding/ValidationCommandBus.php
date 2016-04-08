@@ -8,7 +8,6 @@
 
 namespace App\Classes\Commanding;
 
-use App\Classes\Commanding\CommandTranslator;
 use Illuminate\Contracts\Foundation\Application;
 
 class ValidationCommandBus implements CommandBus
@@ -20,8 +19,9 @@ class ValidationCommandBus implements CommandBus
     private $commandTranslator;
 
     /**
-     * CommandBus constructor.
-     * @param $commandTranslator
+     * @param DefaultCommandBus $commandBus
+     * @param Application $app
+     * @param CommandTranslator $commandTranslator
      */
     public function __construct(DefaultCommandBus $commandBus, Application $app, CommandTranslator $commandTranslator)
     {

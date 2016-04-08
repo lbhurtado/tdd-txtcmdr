@@ -12,7 +12,8 @@
         "laravelcollective/html": "^5.2",
         "simplesoftwareio/simple-sms": "^2.1",
         "telerivet/telerivet-php-client": "^1.1",
-        "artisaninweb/laravel-soap": "0.2.5.10"
+        "artisaninweb/laravel-soap": "0.2.5.10",
+        "hanneskod/classtools": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

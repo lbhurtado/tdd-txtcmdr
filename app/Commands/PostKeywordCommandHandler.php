@@ -12,29 +12,61 @@ use App\Classes\Commanding\CommandHandler;
 use App\Classes\Watcher;
 use App\Classes\Repositories\Interfaces\PostRepositoryInterface;
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
+//use App\Commands\Keywords\Start;
+use Symfony\Component\Finder\Finder;
+use hanneskod\classtools\Iterator\ClassIterator;
+use App\Commands\Keywords\Keyword;
 
 class PostKeywordCommandHandler extends CommandHandler
 {
+    function getKeywordClasses()
+    {
+        $path = app_path();
+
+        $ns = (new \ReflectionClass(Keyword::class))->getNamespaceName();
+
+        $finder = new Finder();
+
+        $iterator = new ClassIterator($finder->files()->in($path));
+
+        $result = [];
+
+        foreach ($iterator->inNamespace($ns)->type(Keywords\Keyword::class)->where('isInstantiable') as $class)
+        {
+            $result[] = $class->getName();
+        }
+
+        return $result;
+    }
+
     public function handle($command)
     {
-        foreach(Watcher::$patterns as $key=>$value)
+        $user = \App::make(UserRepositoryInterface::class)->find($command->mobile);
+
+        if ( !is_null($user) )
         {
-            if (preg_match($value, $command->body, $matches))
-            {
-                $post = \App::make(PostRepositoryInterface::class)->firstOrNew(
-                    [
-                        'title' => $matches['tag'],
-                        'body' => $matches['message'],
-                    ]);
+            $keywordClasses = $this->getKeywordClasses();
 
-                $user = \App::make(UserRepositoryInterface::class)->find($command->mobile);
+            foreach ($keywordClasses as $keywordClass) {
 
-                $post->user()->associate($user);
+                $obj = \App::make($keywordClass);
 
-                $post->save();
+                if (preg_match($obj->getPattern(), $command->keyword, $matches))
+                {
+                    $post = \App::make(PostRepositoryInterface::class)->firstOrNew(
+                        [
+                            'title' => $matches['tag'],
+                            'body' => $matches['message'] ?: "empty",
+                        ]);
 
-                return true;
+                    $post->user()->associate($user);
+
+                    $post->save();
+
+                    return true;
+                }
             }
+
         }
     }
 

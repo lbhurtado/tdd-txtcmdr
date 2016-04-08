@@ -26,7 +26,7 @@ class PostMissiveCommandTest extends TestCase
     {
         $command = new PostMissiveCommand('09189362340', "");
 
-//        $this->setExpectedException('Exception');
+        $this->setExpectedException('Exception');
 
         $this->commandBus->execute($command);
     }
