@@ -16,4 +16,6 @@ interface UserRepositoryInterface
     public function find($mobile);
 
     public function getAll();
+
+    public function register($mobile, $handle = null);
 }

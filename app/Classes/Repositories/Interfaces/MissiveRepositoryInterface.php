@@ -11,6 +11,8 @@ namespace App\Classes\Repositories\Interfaces;
 
 interface MissiveRepositoryInterface
 {
+    public function record($mobile, $body);
+
     public function getAll();
 
     public function find($id);

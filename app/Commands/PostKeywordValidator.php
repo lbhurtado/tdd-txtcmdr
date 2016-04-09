@@ -12,18 +12,30 @@ use Illuminate\Support\Facades\Validator;
 
 class PostKeywordValidator
 {
-    static $rules = [
-        'mobile'  => ['required', 'regex: /^(?<country>0|63|\+63)(?<telco>9\d{2})(?<number>\d{7})$/'],
-        'keyword' => ['required', 'regex: /^(start|here)$/i'],
-    ];
-
     public function validate(PostKeywordCommand $command) {
+
+        $keywordClasses = getKeywordClasses();
+
+        $classes = [];
+
+        foreach($keywordClasses as $keywordClass)
+        {
+            $keywordObject = (new \ReflectionClass($keywordClass))->newInstance();
+
+            $classes[] = strtolower($keywordObject->getKeyword());
+        }
+
+        $regexKeywordClasses = "/^(" . implode("|", $classes) . ")$/i";
+
         $validator = Validator::make(
             [
                 'mobile'  => $command->mobile,
                 'keyword' => $command->keyword,
             ],
-            self::$rules
+            [
+                'mobile'  => ['required', 'regex: ' . MOBILE_REGEX],
+                'keyword' => ['required', 'regex: ' . $regexKeywordClasses]
+            ]
         );
 
         if ($validator->fails()) {

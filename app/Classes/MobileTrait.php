@@ -14,18 +14,6 @@ trait MobileTrait
 {
     protected static $autoValidate = true;
 
-    public static $defaultCountryCode = "63";
-
-    public static $mobileRegex = "/^(?<country>0|63|\+63)(?<telco>9\d{2})(?<number>\d{7})$/";
-
-    public static function formalize($mobile)
-    {
-        if (preg_match(static::$mobileRegex, $mobile, $matches))
-            $mobile = static::$defaultCountryCode . $matches['telco'] . $matches['number'];
-
-        return $mobile;
-    }
-
     protected static function bootMobileTrait()
     {
         static::creating(function ($model)
@@ -35,7 +23,7 @@ trait MobileTrait
             {
                 if ($model->validate())
                 {
-                    $model->mobile = self::formalize($model->mobile);
+                    $model->mobile = formalizeMobile($model->mobile);
 
                     return true;
                 }
@@ -47,14 +35,14 @@ trait MobileTrait
 
     public function validate()
     {
-        $validator = Validator::make(['mobile' => $this->mobile], ['mobile' => array('regex:' . static::$mobileRegex)]);
+        $validator = Validator::make(['mobile' => $this->mobile], ['mobile' => array('regex:' . MOBILE_REGEX)]);
 
         return ! $validator->fails();
     }
 
     public function scopeHasMobile($query, $mobile)
     {
-        $mobile = self::formalize($mobile);
+        $mobile = formalizeMobile($mobile);
 
         return $query->where(function($q) use ($mobile)
         {

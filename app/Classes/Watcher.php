@@ -22,8 +22,8 @@ class Watcher extends Model
 
     public function scopeHasMobile($query, $mobile)
     {
-        if (preg_match(User::$mobileRegex, $mobile, $matches))
-            $mobile = User::$defaultCountryCode . $matches['telco'] . $matches['number'];
+        if (preg_match(MOBILE_REGEX, $mobile, $matches))
+            $mobile = DEFAULT_COUNTRY_CODE . $matches['telco'] . $matches['number'];
 
         return $query->with('user')->whereHas('user', function($q) use ($mobile){
             $q->where('mobile', '=', $mobile);

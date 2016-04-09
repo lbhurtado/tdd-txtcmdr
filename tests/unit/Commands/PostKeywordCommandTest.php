@@ -33,7 +33,7 @@ class PostKeywordCommandTest extends TestCase
     /** @test */
     function a_post_keyword_command_has_regex_mobile_validation()
     {
-        $command = new PostKeywordCommand("091", "start");
+        $command = new PostKeywordCommand("091", "here");
 
         $this->setExpectedException('Exception');
 
@@ -63,7 +63,7 @@ class PostKeywordCommandTest extends TestCase
     /** @test */
     function a_post_keyword_command_needs_a_user()
     {
-        $command = new PostKeywordCommand('09189362340', "here");
+        $command = new PostKeywordCommand('09189362340', "designate");
 
         $this->commandBus->execute($command);
 

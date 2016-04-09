@@ -21,7 +21,7 @@ class DbUserRepository implements UserRepositoryInterface
 
     public function find($mobile)
     {
-        $mobile = MobileTrait::formalize($mobile);
+        $mobile = formalizeMobile($mobile);
 
         return User::hasMobile($mobile)->first();
     }
@@ -29,5 +29,15 @@ class DbUserRepository implements UserRepositoryInterface
     public function getAll()
     {
         return User::all();
+    }
+
+    public function register($mobile, $handle = null)
+    {
+        $attributes = array_where(compact('mobile', 'handle'), function ($value)
+        {
+            return ! is_null($value);
+        });
+
+        return $this->create($attributes);
     }
 }

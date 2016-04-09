@@ -13,6 +13,11 @@ use App\Classes\Repositories\Interfaces\MissiveRepositoryInterface;
 
 class DbMissiveRepository implements MissiveRepositoryInterface
 {
+    public function record($mobile, $body)
+    {
+        return Missive::record($mobile, $body);
+    }
+
     public function getAll()
     {
         return Missive::all();

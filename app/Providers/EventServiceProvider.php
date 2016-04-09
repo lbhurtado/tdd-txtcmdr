@@ -16,8 +16,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'App\Events\SomeEvent' => [
-            'App\Listeners\EventListener',
+        'App\Events\MissiveWasRecorded' => [
+            'App\Listeners\RelayMissive',
         ],
         MissiveWasPosted::class => [
             Logger::class,

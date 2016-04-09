@@ -8,13 +8,35 @@
 
 namespace App\Commands\Keywords;
 
-abstract Class Keyword
+trait Keyword
 {
     protected $order;
 
     protected $pattern;
 
     protected $reply;
+
+    protected $keyword;
+
+    /**
+     * @return mixed
+     */
+    public function getKeyword()
+    {
+        if ( is_null($this->keyword) )
+        {
+            $class = (new \ReflectionClass($this))->getShortName();
+
+            if (preg_match("/^#?(?<verb>[A-Z][a-z0-9]+)?(?<keyword>[A-Z][a-z0-9]+)(?<suffix>[A-Z][a-z0-9]+)?$/", $class, $matches))
+            {
+                return $matches['keyword'];
+            }
+
+            return strtoupper($class);
+        }
+
+        return $this->keyword;
+    }
 
     /**
      * @return mixed
@@ -29,6 +51,12 @@ abstract Class Keyword
      */
     public function getPattern()
     {
+
+        if ( is_null($this->pattern) )
+        {
+            return  "/^#?(?<tag>{$this->getKeyword()})\\s*(?<message>.*)$/i";
+        }
+
         return $this->pattern;
     }
 

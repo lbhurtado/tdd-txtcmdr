@@ -12,7 +12,7 @@ use App\Classes\Repositories\Interfaces\WatcherRepositoryInterface;
 use App\Classes\Watcher;
 use App\Classes\Locales\Cluster;
 use App\Classes\User;
-use App\Classes\MobileTrait;
+//use App\Classes\MobileTrait;
 
 class DbWatcherRepository implements WatcherRepositoryInterface
 {
@@ -23,7 +23,7 @@ class DbWatcherRepository implements WatcherRepositoryInterface
 
     public function find($mobile)
     {
-        $mobile = MobileTrait::formalize($mobile);
+        $mobile = formalizeMobile($mobile);
 
         return Watcher::with('user')->whereHas('user',
             function($q) use ($mobile)

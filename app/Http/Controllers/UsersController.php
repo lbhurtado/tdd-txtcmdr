@@ -18,7 +18,8 @@ class UsersController extends Controller
     private $mailer;
 
     /**
-     * UsersController constructor.
+     * @param NewsletterList $newsletterList
+     * @param UserMailer $mailer
      */
     public function __construct(NewsletterList $newsletterList, UserMailer $mailer)
     {
@@ -27,8 +28,6 @@ class UsersController extends Controller
         $this->newsletterList = $newsletterList;
 
         $this->mailer = $mailer;
-
-        dd($this->mailer);
     }
 
     public function edit($id)

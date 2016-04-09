@@ -21,7 +21,8 @@ class TelerivetTransport implements Transport
     protected $project;
 
     /**
-     * TelerivetTransport constructor.
+     * @param $api_key
+     * @param $project_id
      */
     public function __construct($api_key, $project_id)
     {

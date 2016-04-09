@@ -27,7 +27,7 @@ class User extends Authenticatable
     {
         if ( ! array_has($attributes, 'handle') && array_has($attributes, 'mobile'))
         {
-            array_set($attributes, 'handle', self::formalize($attributes['mobile']));
+            array_set($attributes, 'handle', formalizeMobile($attributes['mobile']));
         }
     }
 
