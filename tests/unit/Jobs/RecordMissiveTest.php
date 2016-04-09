@@ -13,7 +13,7 @@ class RecordMissiveTest extends TestCase
     /** @test */
     function a_record_missive_job_creates_a_missive()
     {
-        $job = new RecordMissive("09189362340", "Yes, yes, yo");
+        $job = new RecordMissive("09189362340", "event raised in boot");
 
         $this->dispatch($job);
 

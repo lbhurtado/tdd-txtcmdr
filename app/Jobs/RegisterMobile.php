@@ -27,10 +27,9 @@ class RegisterMobile extends Job implements ShouldQueue
         $this->mobile = $mobile;
     }
 
-    public function handle(UserRepositoryInterface $userRepositoryInterface)
+    public function handle(UserRepositoryInterface $user)
     {
-        $userHandle = $this->processUserHandle($this->body);
-        $userRepositoryInterface->register($this->mobile, $userHandle);
+        $user->register($this->mobile, $this->processUserHandle($this->body));
     }
 
     protected function processUserHandle()

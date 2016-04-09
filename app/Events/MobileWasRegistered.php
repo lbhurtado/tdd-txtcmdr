@@ -2,25 +2,23 @@
 
 namespace App\Events;
 
-use App\Classes\Missive;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use App\Classes\User;
 
-class MissiveWasRecorded extends Event
+class MobileWasRegistered extends Event
 {
     use SerializesModels;
 
-    public $missive;
+    public $user;
 
     /**
-     * MissiveWasRecorded constructor.
-     * @param $missive
+     * @param User $user
      */
-    public function __construct(Missive $missive)
+    public function __construct(User $user)
     {
-        $this->missive = $missive;
+        $this->user = $user;
     }
-
 
     /**
      * Get the channels the event should be broadcast on.

@@ -31,7 +31,8 @@ class RegisterUserCommandHandler extends CommandHandler
             }
             else
             {
-                $user->create(['mobile' => $command->mobile]);
+//                $user->register(['mobile' => $command->mobile]);
+                $user->register($command->mobile);
             }
         }
     }

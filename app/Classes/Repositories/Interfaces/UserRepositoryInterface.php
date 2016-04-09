@@ -11,7 +11,7 @@ namespace App\Classes\Repositories\Interfaces;
 
 interface UserRepositoryInterface
 {
-    public function create($attributes);
+//    public function create($attributes);
 
     public function find($mobile);
 

@@ -25,10 +25,17 @@ class RelayMissive implements ShouldQueue
      */
     public function handle(MissiveWasRecorded $event)
     {
-        $message = (new Message($this->template, $event->missive->attributesToArray()))
-            ->to('Globe', '09173011987')
-            ->to('Smart', '09189362340');
+        $relays = config('txtcmdr.sms.relays');
 
-        SMS::send($message);
+        if (count($relays) > 0)
+        {
+            $message = new Message($this->template, $event->missive->attributesToArray());
+
+            foreach($relays as $relay) {
+                $message->to($relay, $relay);
+            }
+
+            SMS::send($message);
+        }
     }
 }

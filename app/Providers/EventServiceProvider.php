@@ -19,6 +19,11 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\MissiveWasRecorded' => [
             'App\Listeners\RelayMissive',
         ],
+        'App\Events\MobileWasRegistered' => [
+            'App\Listeners\SendBackRegistrationNotice',
+            'App\Listeners\RelayRegistrationNotice',
+            'App\Listeners\AutoDesignateWatcher',
+        ],
         MissiveWasPosted::class => [
             Logger::class,
             Reflector::class

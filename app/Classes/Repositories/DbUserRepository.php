@@ -10,15 +10,9 @@ namespace App\Classes\Repositories;
 
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 use App\Classes\User;
-use App\Classes\MobileTrait;
 
 class DbUserRepository implements UserRepositoryInterface
 {
-    public function create($attributes)
-    {
-        return User::create($attributes);
-    }
-
     public function find($mobile)
     {
         $mobile = formalizeMobile($mobile);
@@ -33,11 +27,8 @@ class DbUserRepository implements UserRepositoryInterface
 
     public function register($mobile, $handle = null)
     {
-        $attributes = array_where(compact('mobile', 'handle'), function ($value)
-        {
-            return ! is_null($value);
-        });
+        $attributes = $handle ? compact('mobile', 'handle') : compact('mobile');
 
-        return $this->create($attributes);
+        return User::create($attributes);
     }
 }

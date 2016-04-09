@@ -3,11 +3,8 @@
 namespace App\Classes;
 
 use App\Classes\Eventing\EventGenerator;
-use App\Classes\Locales\Cluster;
-use App\Classes\User;
 use App\Events\MissiveWasRecorded;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\WatcherAutoDesignateException;
 use App\Events\MissiveWasPosted;
 
@@ -18,6 +15,15 @@ class Missive extends Model
     use EventGenerator;
 
     protected $fillable = ['mobile', 'body'];
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::created(function($model) {
+            event(new MissiveWasRecorded($model));
+        });
+    }
 
     /**
      * @deprecated
@@ -31,15 +37,6 @@ class Missive extends Model
         $missive = static::create(compact('mobile', 'body'));
 
         $missive->raise(new MissiveWasPosted($missive));
-
-        return $missive;
-    }
-
-    public static function record($mobile, $body)
-    {
-        $missive = static::create(compact('mobile', 'body'));
-
-        event(new MissiveWasRecorded($missive));
 
         return $missive;
     }
