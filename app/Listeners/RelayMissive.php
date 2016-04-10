@@ -32,7 +32,7 @@ class RelayMissive implements ShouldQueue
             $message = new Message($this->template, $event->missive->attributesToArray());
 
             foreach($relays as $relay) {
-                $message->to($relay, $relay);
+                $message->to($relay);
             }
 
             SMS::send($message);

@@ -32,23 +32,21 @@ class MessageTest extends TestCase
     /** @test */
     public function should_add_to_mobile()
     {
-        $message = new Message('template', ['name' => 'John']);
+        $message = new Message('template', ['body' => 'The quick brown fox...']);
 
-        $message->to('John Smith', '639189362340');
+        $message->to('639189362340');
 
-        $this->assertEquals([
-            ['name' => 'John Smith', 'mobile' => '639189362340', 'type' => 'to']
-        ], $message->to);
+        $this->assertEquals([['mobile' => '639189362340', 'type' => 'to']], $message->to);
     }
 
     /** @test */
     public function should_return_message_as_array()
     {
-        $message = new Message('template', ['name' => 'John']);
+        $message = new Message('template', ['body' => 'The quick brown fox...']);
 
         $message->subject('subject');
 
-        $message->to('John Smith', '639189362340');
+        $message->to('639189362340');
 
         $this->assertEquals(
             [
@@ -56,14 +54,13 @@ class MessageTest extends TestCase
                 'subject'  => 'subject',
                 'to'       => [
                     [
-                        'name' => 'John Smith',
                         'mobile' => '639189362340',
                         'type' => 'to'
                     ]
                 ],
                 'content'  =>
                     [
-                        'name' => 'John'
+                        'body' => 'The quick brown fox...'
                     ]
             ],
             $message->toArray());

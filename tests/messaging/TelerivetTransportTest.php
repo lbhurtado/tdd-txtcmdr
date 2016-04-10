@@ -35,8 +35,8 @@ class TelerivetTransportTest extends TestCase
             'footer' => Carbon::now('Asia/Manila')
         ];
         $message = (new Message($template, $content))
-            ->to('Globe', '09173011987')
-            ->to('Smart', '09189362340');
+            ->to('09173011987')
+            ->to('09189362340');
 
         $telerivet = new TelerivetTransport($this->api_key, $this->project_id);
 

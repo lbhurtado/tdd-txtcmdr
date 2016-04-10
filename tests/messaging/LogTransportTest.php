@@ -25,7 +25,7 @@ class LogTransportTest extends TestCase
             'footer' => "asdsad"
         ]);
 
-        $message->to('Lester', '09173011987');
+        $message->to('09173011987');
 
         $message = $transport->send($message);
 

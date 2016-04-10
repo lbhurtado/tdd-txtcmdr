@@ -2,30 +2,29 @@
 
 namespace App\Listeners;
 
-use App\Events\MobileWasRegistered;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use App\Events\TokenFromMissiveMatchesPattern;
+use App\Classes\Repositories\Interfaces\WatcherRepositoryInterface;
 
 class AutoDesignateWatcher
 {
+    private $watcherRepository;
+
     /**
-     * Create the event listener.
-     *
-     * @return void
+     * @param WatcherRepositoryInterface $watcherRepository
      */
-    public function __construct()
+    public function __construct(WatcherRepositoryInterface $watcherRepository)
     {
-        //
+        $this->watcherRepository = $watcherRepository;
     }
 
     /**
-     * Handle the event.
-     *
-     * @param  MobileWasRegistered  $event
-     * @return void
+     * @param TokenFromMissiveMatchesPattern $event
      */
-    public function handle(MobileWasRegistered $event)
+    public function handle(TokenFromMissiveMatchesPattern $event)
     {
-        //
+        $mobile = $event->mobile;
+        $this->watcherRepository->autoDesignate($event->token, compact('mobile'));
     }
 }

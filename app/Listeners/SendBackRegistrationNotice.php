@@ -27,10 +27,8 @@ class SendBackRegistrationNotice implements ShouldQueue
     {
         $message = new Message($this->template, $event->user->attributesToArray());
 
-        $message->to($event->user->mobile, $event->user->mobile);
+        $message->to($event->user->mobile);
 
         SMS::send($message);
-
-        echo "\nSendBackRegistrationNotice: " . $event->user->mobile;
     }
 }

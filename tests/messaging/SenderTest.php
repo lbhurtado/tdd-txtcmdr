@@ -39,7 +39,7 @@ class SenderTest extends TestCase
             'footer' => Carbon::now('Asia/Manila')
         ];
         $message = (new Message($template, $content))
-            ->to('Globe', '09173011987')
+            ->to('09173011987')
             ->to('Smart', '09189362340');
 
         SMS::send($message);

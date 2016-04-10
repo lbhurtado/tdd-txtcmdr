@@ -7,6 +7,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
+use App\Classes\Locales\Cluster;
+use App\Events\TokenFromMissiveMatchesPattern;
 
 class RegisterMobile extends Job implements ShouldQueue
 {
@@ -29,11 +31,16 @@ class RegisterMobile extends Job implements ShouldQueue
 
     public function handle(UserRepositoryInterface $user)
     {
-        $user->register($this->mobile, $this->processUserHandle($this->body));
+        $user->register($this->mobile, null); // update null to handle
+
+        $this->processMessage();
     }
 
-    protected function processUserHandle()
+    protected function processMessage()
     {
-        return null;
+        if (preg_match(Cluster::$token_pattern, $this->body))
+        {
+            event(new TokenFromMissiveMatchesPattern($this->mobile, $this->body));
+        }
     }
 }

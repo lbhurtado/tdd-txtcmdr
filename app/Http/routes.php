@@ -94,7 +94,7 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
                 'footer' => Carbon::now('Asia/Manila')
             ]
         ))
-            ->to('Anonymous', $mobile);
+            ->to($mobile);
 
 //    $sender = $this->app->make(Sender::class);
 
@@ -110,7 +110,7 @@ Route::post('smart', function() {
             'body' => "Testing Smart Suite",
             'footer' => Carbon::now('Asia/Manila')
         ]
-    ))->to('Globe', '09173011987')->to('Smart', '09189362340');
+    ))->to('09173011987')->to('09189362340');
 
     $transport = new SmartTransport();
 

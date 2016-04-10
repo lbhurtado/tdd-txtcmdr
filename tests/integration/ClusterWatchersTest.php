@@ -94,7 +94,8 @@ class ClusterWatchersTest extends TestCase
     }
 
     /** @test */
-    function a_watcher_can_be_automatically_designated_to_a_cluster_using_token_from_a_mobile() {
+    function a_watcher_can_be_automatically_designated_to_a_cluster_using_token_from_a_mobile()
+    {
         $cluster = Cluster::create();
 
         $watcher = App::make(\App\Classes\Repositories\Interfaces\WatcherRepositoryInterface::class)
@@ -110,7 +111,7 @@ class ClusterWatchersTest extends TestCase
             "639189362340",
             Cluster::find($cluster->id)
                 ->watchers()->with('user')->whereHas('user', function($q) use ($watcher){
-                    $q->where('handle', '=', "lbhurtado");
+                    $q->where('mobile', '=', "639189362340");
                 })->firstOrFail()->user->mobile
         );
     }

@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\WatcherAutoDesignateException;
 use App\Events\MissiveWasPosted;
 
+
 class Missive extends Model
 {
     use MobileTrait;
@@ -20,7 +21,8 @@ class Missive extends Model
     {
         parent::boot();
 
-        static::created(function($model) {
+        static::created(function($model)
+        {
             event(new MissiveWasRecorded($model));
         });
     }

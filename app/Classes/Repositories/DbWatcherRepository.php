@@ -9,6 +9,7 @@
 namespace App\Classes\Repositories;
 
 use App\Classes\Repositories\Interfaces\WatcherRepositoryInterface;
+use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 use App\Classes\Watcher;
 use App\Classes\Locales\Cluster;
 use App\Classes\User;
@@ -46,6 +47,7 @@ class DbWatcherRepository implements WatcherRepositoryInterface
             $watcher->user()->save($user);
 
             $watcher->save();
+
         }
         catch (Exception $e)
         {
@@ -59,9 +61,17 @@ class DbWatcherRepository implements WatcherRepositoryInterface
     {
         try
         {
-            $user = User::create($attributes);
+            $mobile = $attributes['mobile'];
+
+            $user = \App::make(UserRepositoryInterface::class)->find($mobile);
+
+            if (! $user)
+            {
+                $user = \App::make(UserRepositoryInterface::class)->register($mobile);
+            }
 
             $cluster = Cluster::where('token', '=', $token)->firstOrFail();
+
         }
         catch (Exception $e)
         {

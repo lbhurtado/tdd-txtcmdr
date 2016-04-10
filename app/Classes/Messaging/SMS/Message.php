@@ -78,13 +78,13 @@ class Message
     /**
      * Set the `to` field
      *
-     * @param string $name
      * @param string $mobile
-     * @return void
+     * @return $this
+     * @internal param string $name
      */
-    public function to($name, $mobile)
+    public function to($mobile)
     {
-        $this->to[] = array_merge(compact('name', 'mobile'), ['type' => 'to']);
+        $this->to[] = array_merge(compact('mobile'), ['type' => 'to']);
 
         return $this;
     }

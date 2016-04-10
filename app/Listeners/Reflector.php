@@ -29,7 +29,7 @@ class Reflector extends Listener
             ];
 
             $message = (new Message($template, $content))
-                ->to('User', '09173011987');
+                ->to('09173011987');
 
             SMS::send($message);
         }
