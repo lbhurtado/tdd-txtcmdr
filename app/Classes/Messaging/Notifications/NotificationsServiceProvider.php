@@ -21,10 +21,10 @@ class NotificationsServiceProvider extends ServiceProvider
      */
     public function register()
     {
-//        $this->app->bind(
-//            LessonPublished::class,
-//            \App\Classes\Messaging\Notifications\Mailchimp\LessonPublished::class
-//        );
+        $this->app->bind(
+            LessonPublished::class,
+            \App\Classes\Messaging\Notifications\Mailchimp\LessonPublished::class
+        );
     }
 
 }

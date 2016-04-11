@@ -160,9 +160,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
-        \App\Classes\Messaging\Newsletters\NewsletterListServiceProvider::class,
-        \App\Classes\Messaging\Notifications\NotificationsServiceProvider::class,
-        \App\Classes\Messaging\Mailers\UserMailerServiceProvider::class,
+//        \App\Classes\Messaging\Newsletters\NewsletterListServiceProvider::class,
+//        \App\Classes\Messaging\Notifications\NotificationsServiceProvider::class,
+//        \App\Classes\Messaging\Mailers\UserMailerServiceProvider::class,
         \App\Classes\Messaging\SMS\SenderServiceProvider::class,
         \App\Classes\Repositories\BackendServiceProvider::class,
 
