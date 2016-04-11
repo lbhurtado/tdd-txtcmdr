@@ -17,7 +17,7 @@ use App\Classes\Messaging\SMS\Message;
 use Carbon\Carbon;
 use App\Classes\Messaging\SMS\Sender;
 use App\Classes\Messaging\SMS\Facades\SMS;
-use App\Classes\Missive;
+use App\Jobs\RecordMissive;
 
 Route::get('/', function () {
     return view('welcome');
