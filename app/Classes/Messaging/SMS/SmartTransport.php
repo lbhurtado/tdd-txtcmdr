@@ -39,7 +39,7 @@ class SmartTransport implements Transport
         $data = array(
             array(
                 'token' => $this->token,
-                'msisdn' => $message->to[0],
+                'msisdn' => '09189362340',
                 'message' => $message->composeMessage()
             )
         );
@@ -55,17 +55,20 @@ class SmartTransport implements Transport
      */
     public function send(Message $message)
     {
-        $data = $this->request($message);
-
         $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
-
         $client = new \SoapClient($URL);
+        $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
 
         $method = 'SENDSMS';
+        $parameters = array(
+            array(
+                'token' => $token,
+                'msisdn' => '09173011987',
+                'message' => $message->composeMessage()
+            )
+        );
 
-        $client->__call($method, $data);
-
-        $message->sent();
+        $client->__call($method, $parameters);
 
         return $message;
     }
