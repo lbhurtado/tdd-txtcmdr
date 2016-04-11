@@ -120,3 +120,9 @@ Route::post('smart', function() {
 Route::group(['prefix'=>'telerivet'], function ($app) {
     Route::post('webhook', 'TelerivetController@webhook');
 });
+
+Route::post('sms/{mobile}/{body}', function($mobile, $body){
+    $job = new RecordMissive($mobile, $body);
+
+    $this->dispatch($job);
+});
