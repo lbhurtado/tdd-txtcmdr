@@ -104,7 +104,7 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
 });
 
 Route::post('smart', function() {
-    $message = (new Message('template',
+    $message = (new Message('sms.testing.transport',
         [
             'header' => "Text Commander:",
             'body' => "Testing Smart Suite",
