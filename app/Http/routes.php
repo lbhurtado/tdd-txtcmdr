@@ -107,7 +107,7 @@ Route::post('smart', function() {
     $message = (new Message('sms.testing.transport',
         [
             'header' => "Text Commander:",
-            'body' => "Testing Smart Suite",
+            'body' => "The quick brown fox jumps over the lazy dog.",
             'footer' => Carbon::now('Asia/Manila')
         ]
     ))->to('09173011987')->to('09189362340');

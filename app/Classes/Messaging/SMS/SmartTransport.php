@@ -55,20 +55,27 @@ class SmartTransport implements Transport
      */
     public function send(Message $message)
     {
+        $to_numbers = array_pluck($message->to, 'mobile');
+
         $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
         $client = new \SoapClient($URL);
         $token = "9f4fefe761c95853f9b6a2f4801a1ea6";
 
         $method = 'SENDSMS';
-        $parameters = array(
-            array(
-                'token' => $token,
-                'msisdn' => '09173011987',
-                'message' => $message->composeMessage()
-            )
-        );
 
-        $client->__call($method, $parameters);
+        foreach ($to_numbers as $to)
+        {
+            $parameters = array(
+                array(
+                    'token' => $token,
+                    'msisdn' => $to,
+                    'message' => $message->composeMessage()
+                )
+            );
+
+            $client->__call($method, $parameters);
+        }
+
 
         return $message;
     }
