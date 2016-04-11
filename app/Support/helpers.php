@@ -8,7 +8,7 @@
 
 use Symfony\Component\Finder\Finder;
 use hanneskod\classtools\Iterator\ClassIterator;
-use App\Commands\Keywords\Keyword;
+use App\Commands\Keywords\KeywordJob;
 
 define('DEFAULT_COUNTRY_CODE', "63");
 
@@ -26,7 +26,7 @@ function getKeywordClasses()
 {
     $path = app_path();
 
-    $ns = (new \ReflectionClass(Keyword::class))->getNamespaceName();
+    $ns = (new \ReflectionClass(KeywordJob::class))->getNamespaceName();
 
     $finder = new Finder();
 

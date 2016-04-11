@@ -4,9 +4,10 @@ namespace App\Providers;
 
 use Illuminate\Contracts\Events\Dispatcher as DispatcherContract;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use App\Events\MissiveWasPosted;
-use App\Listeners\Logger;
-use App\Listeners\Reflector;
+use App\Classes\Missive;
+use App\Events\MissiveWasRecorded;
+use App\Classes\User;
+use App\Events\MobileWasRegistered;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -23,12 +24,8 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\SendBackRegistrationNotice',
             'App\Listeners\RelayRegistrationNotice',
         ],
-        'App\Events\TokenFromMissiveMatchesPattern' => [
+        'App\Events\TokenFromMissiveMatchedPattern' => [
             'App\Listeners\AutoDesignateWatcher',
-        ],
-        MissiveWasPosted::class => [
-            Logger::class,
-            Reflector::class
         ]
     ];
 
@@ -42,13 +39,12 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot($events);
 
-//        Post::created(function($post){
-//            Activity::create([
-//                'subject_id' => $post->id,
-//                'subject_type' => get_class($post),
-//                'name' => 'created_post',
-//                'user_id' => $post->user_id
-//            ]);
-//        });
+        Missive::created(function ($model) {
+            event(new MissiveWasRecorded($model));
+        });
+
+        User::created(function ($model) {
+            event(new MobileWasRegistered($model));
+        });
     }
 }

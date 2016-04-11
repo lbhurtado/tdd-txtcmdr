@@ -8,7 +8,6 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 use App\Classes\Repositories\Interfaces\WatcherRepositoryInterface;
 use App\Classes\Locales\Cluster;
-
 class RegisterMobileTest extends TestCase
 {
     use DatabaseTransactions, DispatchesJobs;
@@ -22,7 +21,9 @@ class RegisterMobileTest extends TestCase
 
         $this->assertCount(1, $userRepository->getAll());
 
-        $this->assertEquals("639189362340", $userRepository->find("639189362340")->mobile);
+        $user = $userRepository->find("639189362340");
+
+        $this->assertEquals("639189362340", $user->mobile);
     }
 
     /** @test */
@@ -36,6 +37,22 @@ class RegisterMobileTest extends TestCase
 
         $this->assertCount(1, $watcherRepository->getAll());
 
-        $this->assertEquals("639189362340", $watcherRepository->find("09189362340")->user->handle);
+        $watcher = $watcherRepository->find("09189362340");
+
+        $this->assertEquals("639189362340", $watcher->user->handle);
+    }
+
+    /** @test */
+    function a_register_mobile_job_invokes_a_keyword()
+    {
+        $this->dispatch(new RegisterMobile("09189362340", "start"));
+
+        $userRepository = App::make(UserRepositoryInterface::class);
+
+        $this->assertCount(1, $userRepository->getAll());
+
+        $user = $userRepository->find("639189362340");
+
+        $this->assertEquals("639189362340", $user->mobile);
     }
 }

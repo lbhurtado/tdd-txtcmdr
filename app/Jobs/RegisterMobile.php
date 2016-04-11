@@ -2,13 +2,12 @@
 
 namespace App\Jobs;
 
-use App\Jobs\Job;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 use App\Classes\Locales\Cluster;
-use App\Events\TokenFromMissiveMatchesPattern;
+use App\Events\TokenFromMissiveMatchedPattern;
 
 class RegisterMobile extends Job implements ShouldQueue
 {
@@ -29,18 +28,51 @@ class RegisterMobile extends Job implements ShouldQueue
         $this->mobile = $mobile;
     }
 
-    public function handle(UserRepositoryInterface $user)
+    public function handle(UserRepositoryInterface $userRepository)
     {
-        $user->register($this->mobile, null); // update null to handle
+        $user = $userRepository->register($this->mobile, null); // update null to handle
 
-        $this->processMessage();
+        $userIsRegistered = (bool) $user;
+
+        if ($userIsRegistered)
+            $this->processMessage();
     }
 
     protected function processMessage()
     {
-        if (preg_match(Cluster::$token_pattern, $this->body))
+        $tokenMatchedPattern = preg_match(Cluster::$token_pattern, $this->body);
+
+        if ($tokenMatchedPattern)
+            event(new TokenFromMissiveMatchedPattern($this->mobile, $this->body));
+
+        $keywordClasses = getKeywordClasses();
+
+        $classes = [];
+
+        foreach ($keywordClasses as $keywordClass)
         {
-            event(new TokenFromMissiveMatchesPattern($this->mobile, $this->body));
+            $obj = \App::make($keywordClass);
+
+            $classes[] = $keywordClass::getPattern();
+//            if (preg_match($obj->getPattern(), $this->body, $matches))
+//            {
+//                $classes[] = strtolower($obj->getKeyword());
+//            }
         }
+
+        dd($classes);
+
+//        $classes = [];
+//
+//        foreach($keywordClasses as $keywordClass)
+//        {
+//            $keywordObject = (new \ReflectionClass($keywordClass))->newInstance();
+//
+//            $classes[] = strtolower($keywordObject->getKeyword());
+//        }
+//
+//        $regexKeywordClasses = "/^#?(?<keyword>" . implode("|", $classes) . ")\s*(?<arguments>.*)$/i";
+//
+//        dd($regexKeywordClasses);
     }
 }

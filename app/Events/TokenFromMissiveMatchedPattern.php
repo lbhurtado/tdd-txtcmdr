@@ -6,7 +6,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use App\Classes\Missive;
 
-class TokenFromMissiveMatchesPattern extends Event
+class TokenFromMissiveMatchedPattern extends Event
 {
     use SerializesModels;
 

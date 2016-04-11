@@ -4,7 +4,7 @@ namespace App\Listeners;
 
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
-use App\Events\TokenFromMissiveMatchesPattern;
+use App\Events\TokenFromMissiveMatchedPattern;
 use App\Classes\Repositories\Interfaces\WatcherRepositoryInterface;
 
 class AutoDesignateWatcher
@@ -20,9 +20,9 @@ class AutoDesignateWatcher
     }
 
     /**
-     * @param TokenFromMissiveMatchesPattern $event
+     * @param TokenFromMissiveMatchedPattern $event
      */
-    public function handle(TokenFromMissiveMatchesPattern $event)
+    public function handle(TokenFromMissiveMatchedPattern $event)
     {
         $mobile = $event->mobile;
         $this->watcherRepository->autoDesignate($event->token, compact('mobile'));

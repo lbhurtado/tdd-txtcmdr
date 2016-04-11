@@ -26,13 +26,6 @@ class SmartTransport implements Transport
     {
         $this->token = env("SMARTSUITE_TOKEN");
 
-        SoapWrapper::add(function ($service) {
-            $service
-                ->name(self::$SERVICE)
-                ->wsdl(self::$WSDL)
-                ->trace(true)        ;                                           // Optional: (parameter: true/false)
-//                ->cache(WSDL_CACHE_NONE);                                       // Optional: Set the WSDL cache
-        });
     }
 
     /**
@@ -43,15 +36,13 @@ class SmartTransport implements Transport
      */
     public function request(Message $message)
     {
-        $data = [];
-
-        foreach ($message->to as $addressee) {
-            $data [] = [
-                'token'     => $this->token,
-                'msisdn'    => $addressee['mobile'],
-                'message'   => $message->content['body']
-            ];
-        }
+        $data = array(
+            array(
+                'token' => $this->token,
+                'msisdn' => $message->to[0],
+                'message' => $message->composeMessage()
+            )
+        );
 
         return $data;
     }
@@ -66,11 +57,13 @@ class SmartTransport implements Transport
     {
         $data = $this->request($message);
 
-        SoapWrapper::service(self::$SERVICE, function ($service) use ($data) {
-            foreach ($data as $d) {
-                $service->call(self::$SERVICE, array($d));
-            }
-        });
+        $URL = "https://ws.smartmessaging.com.ph/soap/?wsdl";
+
+        $client = new \SoapClient($URL);
+
+        $method = 'SENDSMS';
+
+        $client->__call($method, $data);
 
         $message->sent();
 

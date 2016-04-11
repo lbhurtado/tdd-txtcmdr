@@ -8,11 +8,10 @@
 
 namespace App\Commands;
 
-use App\Classes\Commanding\CommandHandler;
 use App\Classes\Repositories\Interfaces\PostRepositoryInterface;
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 
-class PostKeywordCommandHandler extends CommandHandler
+class PostKeywordCommandHandler
 {
     public function handle($command)
     {

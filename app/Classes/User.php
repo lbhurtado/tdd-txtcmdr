@@ -3,8 +3,6 @@
 namespace App\Classes;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Exception;
-use App\Events\MobileWasRegistered;
 
 class User extends Authenticatable
 {
@@ -23,15 +21,6 @@ class User extends Authenticatable
         'notify' => false,
         'password' => "4321"
     );
-
-    public static function boot()
-    {
-        parent::boot();
-
-        static::created(function($model) {
-            event(new MobileWasRegistered($model));
-        });
-    }
 
     protected static function defaultHandleToMobile(array &$attributes)
     {
@@ -85,7 +74,7 @@ class User extends Authenticatable
         }
         else {
 
-            throw new Exception("Invalid user type");
+            throw new \Exception("Invalid user type");
         }
     }
 

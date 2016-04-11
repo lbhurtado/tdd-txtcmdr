@@ -8,7 +8,7 @@
 
 namespace App\Commands\Keywords;
 
-class PostHereCommand
+class InvokeHereCommand extends KeywordJob
 {
-    use Keyword;
+    protected static $keywords = ['here', 'dito'];
 }

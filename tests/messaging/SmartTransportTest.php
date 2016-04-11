@@ -13,18 +13,18 @@ class SmartTransportTest extends TestCase
     /** @test */
     public function smart_transport_should_send_message()
     {
-//        $message = (new Message('template',
-//            [
-//            'header' => "Header",
-//            'body' => "Testing multiple addressees - Globe muna. 2",
-//            'footer' => "Footer"
-//            ]
-//        ))->to('Globe', '09173011987')->to('Smart', '09189362340');
-//
-//        $transport = new SmartTransport();
-//
-//        $message = $transport->send($message);
-//
-//        $this->assertTrue($message->isSent());
+        $message = (new Message('template',
+            [
+            'header' => "Header",
+            'body' => "Testing multiple addressees - Globe muna. 2",
+            'footer' => "Footer"
+            ]
+        ))->to('09173011987')->to('09189362340');
+
+        $transport = new SmartTransport();
+
+        $message = $transport->send($message);
+
+        $this->assertTrue($message->isSent());
     }
 }
