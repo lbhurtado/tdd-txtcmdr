@@ -105,7 +105,7 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
 });
 
 Route::post('smart', function() {
-    $body = "SMS sample ballot\nDuterte\nMarcos\nLacson\nBaligod\nAlunan";
+    $body = "SMS sample ballot\nDuterte\nMarcos\nLacson\nBaligod\nAlunan\nGordon";
 
     $message = (new Message('sms.testing.transport',
         [
@@ -113,7 +113,7 @@ Route::post('smart', function() {
             'body' => $body,
             'footer' => Carbon::now('Asia/Manila')
         ]
-    ))->to('09173011987')->to('09189362340');
+    ))->to('639178907531')->to('639285078279')->to('09175339430')->to('09178009081')->to('09173011987');
 
     $transport = new SmartTransport();
 
