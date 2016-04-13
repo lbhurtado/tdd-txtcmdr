@@ -5,6 +5,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Jobs\RecordMissive;
 use Illuminate\Foundation\Bus\DispatchesJobs;
+use App\Classes\Repositories\Interfaces\MissiveRepositoryInterface;
 
 class RecordMissiveTest extends TestCase
 {
@@ -17,10 +18,10 @@ class RecordMissiveTest extends TestCase
 
         $this->dispatch($job);
 
-        $missive = App::make(\App\Classes\Repositories\Interfaces\MissiveRepositoryInterface::class);
+        $missiveRepository = App::make(MissiveRepositoryInterface::class);
 
-        $this->assertCount(1, $missive->getAll());
+        $this->assertCount(1, $missiveRepository->getAll());
 
-        $this->assertEquals("639189362340", $missive->find(1)->mobile);
+        $this->assertEquals("639189362340", $missiveRepository->find(1)->mobile);
     }
 }

@@ -13,7 +13,7 @@ class SmartTransportTest extends TestCase
     /** @test */
     public function smart_transport_should_send_message()
     {
-//        $message = (new Message('template',
+//        $message = (new Message('sms.testing.transport',
 //            [
 //            'header' => "Header",
 //            'body' => "Testing multiple addressees - Globe muna. 2",

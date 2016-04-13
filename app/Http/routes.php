@@ -105,10 +105,12 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
 });
 
 Route::post('smart', function() {
+    $body = "SMS sample ballot\nDuterte\nMarcos\nLacson\nBaligod\nAlunan";
+
     $message = (new Message('sms.testing.transport',
         [
             'header' => "Text Commander:",
-            'body' => "The quick brown fox jumps over the lazy dog.",
+            'body' => $body,
             'footer' => Carbon::now('Asia/Manila')
         ]
     ))->to('09173011987')->to('09189362340');
@@ -122,8 +124,4 @@ Route::group(['prefix'=>'telerivet'], function ($app) {
     Route::post('webhook', 'TelerivetController@webhook');
 });
 
-Route::post('sms/{mobile}/{body}', function($mobile, $body){
-    $job = new RecordMissive($mobile, $body);
-
-    $this->dispatch($job);
-});
+Route::resource('sms/{mobile}/{body}', 'TextCommanderController@sms');

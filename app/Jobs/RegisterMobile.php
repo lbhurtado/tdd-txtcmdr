@@ -60,8 +60,6 @@ class RegisterMobile extends Job implements ShouldQueue
 //            }
         }
 
-        dd($classes);
-
 //        $classes = [];
 //
 //        foreach($keywordClasses as $keywordClass)

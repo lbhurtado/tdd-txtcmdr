@@ -8,6 +8,7 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use App\Classes\Repositories\Interfaces\UserRepositoryInterface;
 use App\Classes\Repositories\Interfaces\WatcherRepositoryInterface;
 use App\Classes\Locales\Cluster;
+
 class RegisterMobileTest extends TestCase
 {
     use DatabaseTransactions, DispatchesJobs;
