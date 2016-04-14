@@ -151,6 +151,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         SimpleSoftwareIO\SMS\SMSServiceProvider::class,
         Artisaninweb\SoapWrapper\ServiceProvider::class,
+        Propaganistas\LaravelPhone\LaravelPhoneServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -165,6 +166,7 @@ return [
 //        \App\Classes\Messaging\Mailers\UserMailerServiceProvider::class,
         \App\Classes\Messaging\SMS\SenderServiceProvider::class,
         \App\Classes\Repositories\BackendServiceProvider::class,
+
 
     ],
 

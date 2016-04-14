@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use App\Classes\Mobile;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -26,5 +27,10 @@ class AppServiceProvider extends ServiceProvider
         if ($this->app->environment() == 'local') {
             $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
         }
+
+        $this->app->bind('Mobile', function ($number)
+        {
+            return new Mobile($number);
+        });
     }
 }

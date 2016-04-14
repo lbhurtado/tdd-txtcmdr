@@ -18,6 +18,14 @@ use Carbon\Carbon;
 use App\Classes\Messaging\SMS\Sender;
 use App\Classes\Messaging\SMS\Facades\SMS;
 use App\Jobs\RecordMissive;
+use App\Classes\Mobile;
+
+//Route::bind('mobile', function($value)
+//{
+//    return new Mobile($value);
+//});
+
+Route::get('sms/{mobile}', 'TextCommanderController@sms');
 
 Route::get('/', function () {
     return view('welcome');
@@ -105,15 +113,15 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
 });
 
 Route::post('smart', function() {
-    $body = "SMS sample ballot\nDuterte\nMarcos\nLacson\nBaligod\nAlunan\nGordon";
+    $body = " BBM must win! I can help. https://www.flickr.com/photos/140231993@N04/shares/16Cd76";
 
     $message = (new Message('sms.testing.transport',
         [
-            'header' => "Text Commander:",
+            'header' => "Hi Atty. Lisa.",
             'body' => $body,
-            'footer' => Carbon::now('Asia/Manila')
+            'footer' => "Lester Hurtado (09189362340)"
         ]
-    ))->to('09175364872');
+    ))->to('09189362340');
 //    ))->to('639178907531')->to('639285078279')->to('09175339430')->to('09178009081')->to('09173011987');
 
     $transport = new SmartTransport();
@@ -124,5 +132,3 @@ Route::post('smart', function() {
 Route::group(['prefix'=>'telerivet'], function ($app) {
     Route::post('webhook', 'TelerivetController@webhook');
 });
-
-Route::resource('sms/{mobile}/{body}', 'TextCommanderController@sms');
