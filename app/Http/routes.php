@@ -113,7 +113,9 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
 });
 
 Route::post('smart', function() {
-    $body = " BBM must win! I can help. https://www.flickr.com/photos/140231993@N04/shares/16Cd76";
+//    $body = "BBM must win! I can help. https://www.flickr.com/photos/140231993@N04/shares/16Cd76";
+
+    $body = "BBM must win! I can help. http://www.slideshare.net/secret/A2owAsP3naQlXn";
 
     $message = (new Message('sms.testing.transport',
         [
@@ -127,6 +129,8 @@ Route::post('smart', function() {
     $transport = new SmartTransport();
 
     $transport->send($message);
+
+    return "Sent!";
 });
 
 Route::group(['prefix'=>'telerivet'], function ($app) {
