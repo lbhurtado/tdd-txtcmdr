@@ -115,11 +115,11 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
 Route::post('smart', function() {
 //    $body = "BBM must win! I can help. https://www.flickr.com/photos/140231993@N04/shares/16Cd76";
 
-    $body = "BBM must win! I can help. http://www.slideshare.net/secret/A2owAsP3naQlXn";
+    $body = "BBM must win! I can help. \nhttp://www.slideshare.net/secret/A2owAsP3naQlXn\n";
 
     $message = (new Message('sms.testing.transport',
         [
-            'header' => "Hi Atty. Lisa.",
+            'header' => "Hi Atty. Lisa.\n",
             'body' => $body,
             'footer' => "Lester Hurtado (09189362340)"
         ]
