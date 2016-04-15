@@ -128,7 +128,7 @@ Route::post('smart', function() {
     //    ))->to('09189085492')->to('09175294599')->to('09189362340');
 
 
-//    return $message->composeMessage();
+    return $message->composeMessage();
 
 //    ))->to('639178907531')->to('639285078279')->to('09175339430')->to('09178009081')->to('09173011987');
 
