@@ -115,15 +115,16 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
 Route::post('smart', function() {
 //    $body = "BBM must win! I can help. https://www.flickr.com/photos/140231993@N04/shares/16Cd76";
 
-    $body = "Duterte's votes must be counted! We can help. \nhttp://www.slideshare.net/secret/A2owAsP3naQlXn\n";
+    $body = "Binay/Marcos votes must be counted! We'll help. \nhttp://www.slideshare.net/secret/A2owAsP3naQlXn\n";
 
     $message = (new Message('sms.testing.transport',
         [
-            'header' => "Hi Tito Bebot.\n",
+            'header' => "Hi Tito Boy.\n",
             'body' => $body,
-            'footer' => "Lester (09189362340)\ncc:Patmei"
+            'footer' => "Lester(09173011987)\ncc:Alan,ROJ"
         ]
-           ))->to('09173232360')->to('09998894478')->to('09189362340');
+    ))->to('09188030809')->to('09178143895')->to('09175543498')->to('09189362340');
+//           ))->to('09173232360')->to('09998894478')->to('09189362340');
     //    ))->to('09189085492')->to('09175294599')->to('09189362340');
 
 
