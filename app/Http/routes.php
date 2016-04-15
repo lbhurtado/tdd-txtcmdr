@@ -115,16 +115,19 @@ Route::post('send/{mobile}/{body}', function($mobile, $body) {
 Route::post('smart', function() {
 //    $body = "BBM must win! I can help. https://www.flickr.com/photos/140231993@N04/shares/16Cd76";
 
-    $body = "BBM votes must be counted! We can help. \nhttp://www.slideshare.net/secret/A2owAsP3naQlXn\n";
+    $body = "Duterte's votes must be counted! We can help. \nhttp://www.slideshare.net/secret/A2owAsP3naQlXn\n";
 
     $message = (new Message('sms.testing.transport',
         [
-            'header' => "Hi Atty. Lisa.\n",
+            'header' => "Hi Tito Bebot.\n",
             'body' => $body,
-            'footer' => "Lester Hurtado (09189362340)\ncc:WBV"
+            'footer' => "Lester (09189362340)\ncc:Patmei"
         ]
-    ))->to('09189085492')->to('09175294599')->to('09189362340');
+           ))->to('09173232360')->to('09998894478')->to('09189362340');
+    //    ))->to('09189085492')->to('09175294599')->to('09189362340');
 
+
+//    return $message->composeMessage();
 
 //    ))->to('639178907531')->to('639285078279')->to('09175339430')->to('09178009081')->to('09173011987');
 
@@ -132,7 +135,7 @@ Route::post('smart', function() {
 
     $transport->send($message);
 
-    return "Sent!";
+    return "Sent to Tito Bebot!";
 });
 
 Route::group(['prefix'=>'telerivet'], function ($app) {
