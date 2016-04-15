@@ -136,7 +136,7 @@ Route::post('smart', function() {
 
     $transport->send($message);
 
-    return "Sent to Tito Bebot!";
+    return "Sent to Tito Boy Saycon!";
 });
 
 Route::group(['prefix'=>'telerivet'], function ($app) {
