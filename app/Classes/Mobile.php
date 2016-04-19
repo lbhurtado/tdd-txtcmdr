@@ -17,8 +17,6 @@ class Mobile
 
     public function __construct($number)
     {
-        dd($number);
-
         $validator = Validator::make(compact('number'), ['number' => 'phone:AUTO,PH']);
 
         if ($validator->fails())

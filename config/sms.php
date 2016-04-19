@@ -61,7 +61,7 @@
 
 
 return [
-    'driver' => 'log',
+    'driver' => 'telerivet',
     'from' => '+13104992907',
     'callfire' => [
         'app_login' => 'Your CallFire API Login',
@@ -96,6 +96,8 @@ return [
         'project_id' => env('TELERIVET_PROJECT_ID'),
     ],
     'smart' => [
-        'token' => env("SMARTSUITE_TOKEN"),
+        'token' => env('SMARTSUITE_TOKEN'),
+        'wsdl' => 'https://ws.smartmessaging.com.ph/soap/?wsdl',
+        'service' => 'SENDSMS',
     ],
 ];

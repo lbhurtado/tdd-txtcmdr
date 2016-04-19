@@ -28,7 +28,7 @@ class AppServiceProvider extends ServiceProvider
             $this->app->register('Laracasts\Generators\GeneratorsServiceProvider');
         }
 
-        $this->app->bind('Mobile', function ($number)
+        $this->app->bind(Mobile::class, function ($number)
         {
             return new Mobile($number);
         });

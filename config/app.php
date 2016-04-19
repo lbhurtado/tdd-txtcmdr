@@ -167,6 +167,8 @@ return [
         \App\Classes\Messaging\SMS\SenderServiceProvider::class,
         \App\Classes\Repositories\BackendServiceProvider::class,
 
+        \App\Classes\Messaging\SMS\SMSServiceProvider::class,
+
 
     ],
 
@@ -216,8 +218,8 @@ return [
 
         'SoapWrapper' => Artisaninweb\SoapWrapper\Facades\SoapWrapper::class,
         'Form' => Collective\Html\FormFacade::class,
-//        'SMS' => SimpleSoftwareIO\SMS\Facades\SMS::class,
-        'SMS' => \App\Classes\Messaging\SMS\Facades\SMS::class,
+        'SMS' => SimpleSoftwareIO\SMS\Facades\SMS::class,
+//        'SMS' => \App\Classes\Messaging\SMS\Facades\SMS::class,
 
     ],
 

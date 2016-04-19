@@ -16,7 +16,7 @@ use App\Classes\Messaging\SMS\SmartTransport;
 use App\Classes\Messaging\SMS\Message;
 use Carbon\Carbon;
 use App\Classes\Messaging\SMS\Sender;
-use App\Classes\Messaging\SMS\Facades\SMS;
+//use App\Classes\Messaging\SMS\Facades\SMS;
 use App\Jobs\RecordMissive;
 use App\Classes\Mobile;
 
@@ -141,4 +141,10 @@ Route::post('smart', function() {
 
 Route::group(['prefix'=>'telerivet'], function ($app) {
     Route::post('webhook', 'TelerivetController@webhook');
+});
+
+Route::post('test', function(){
+    SMS::send('This is a test message from web.', [], function($sms) {
+        $sms->to('09189362340');
+    });
 });

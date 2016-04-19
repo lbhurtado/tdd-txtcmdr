@@ -8,7 +8,7 @@ use libphonenumber\PhoneNumberFormat;
 
 class TextCommanderController extends Controller
 {
-    public function sms(Mobile $number)
+    public function sms(Mobile $mobile)
     {
 //
 //        $this->validate(compact('mobile'), [
